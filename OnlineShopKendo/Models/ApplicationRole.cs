@@ -11,5 +11,7 @@ namespace OnlineShopKendo.Models
         public ApplicationRole() { }
 
         public string Description { get; set; }
+
+        public int Permission { get; set; }
     }
 }

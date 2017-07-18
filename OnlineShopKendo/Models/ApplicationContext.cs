@@ -18,6 +18,10 @@ namespace OnlineShopKendo.Models
 
         public virtual DbSet<Description> Descriptions { get; set; }
 
+        public virtual DbSet<MenuLanguage> MenuLanguages { get; set; }
+
+        public virtual DbSet<Menu> Menus { get; set; }
+
         public virtual DbSet<OrderItem> OrderItems { get; set; }
 
 

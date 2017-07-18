@@ -214,6 +214,18 @@
     <Compile Include="Migrations\201707180938012_2.Designer.cs">
       <DependentUpon>201707180938012_2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201707181014276_10.cs" />
+    <Compile Include="Migrations\201707181014276_10.Designer.cs">
+      <DependentUpon>201707181014276_10.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201707181016083_11.cs" />
+    <Compile Include="Migrations\201707181016083_11.Designer.cs">
+      <DependentUpon>201707181016083_11.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201707181019511_13.cs" />
+    <Compile Include="Migrations\201707181019511_13.Designer.cs">
+      <DependentUpon>201707181019511_13.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationContext.cs" />
     <Compile Include="Models\ApplicationRole.cs" />
@@ -226,6 +238,8 @@
     <Compile Include="Models\Item.cs" />
     <Compile Include="Models\Language.cs" />
     <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\Menu.cs" />
+    <Compile Include="Models\MenuLanguage.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\OrderItem.cs" />
     <Compile Include="Models\RegisterModel.cs" />
@@ -247,10 +261,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\OnlineShopKendoo.mdf" />
-    <Content Include="App_Data\OnlineShopKendoo_log.ldf">
-      <DependentUpon>OnlineShopKendoo.mdf</DependentUpon>
-    </Content>
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -340,7 +350,9 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Project_Readme.html" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
@@ -353,6 +365,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201707180938012_2.resx">
       <DependentUpon>201707180938012_2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707181014276_10.resx">
+      <DependentUpon>201707181014276_10.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707181016083_11.resx">
+      <DependentUpon>201707181016083_11.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707181019511_13.resx">
+      <DependentUpon>201707181019511_13.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Resource.en.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

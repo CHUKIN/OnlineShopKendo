@@ -13,5 +13,7 @@ namespace OnlineShopKendo.Models
         public string Code { get; set; }
 
         public virtual ICollection<Description> Descriptions { get; set; }
+
+        public virtual ICollection<MenuLanguage> MenuLanguages { get; set; }
     }
 }
