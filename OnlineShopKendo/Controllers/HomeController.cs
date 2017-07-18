@@ -26,29 +26,19 @@ namespace OnlineShopKendo.Controllers
             return View(db.Items.ToList());
         }
 
-        public ActionResult Order(int[] idArray)
+        public ActionResult Order(int[] idArray,int[] countArray)
         {
             ApplicationUser user = db.Users.Find(User.Identity.GetUserId());
             Order order = new Order { Date = DateTime.Now,User = user};
             int cost = 0;
             db.Orders.Add(order);
 
-            //Array.Sort(idArray);
-
-
-            foreach (var id in idArray.Distinct())
+            for (int i = 0; i < idArray.Length; i++)
             {
-                var item = db.Items.Find(id);
+                var item = db.Items.Find(idArray[i]);
                 int count = 0;
-                foreach (var i in idArray)
-                {
-                    if (id == i)
-                    {
-                        count++;
-                    }
-                }
-                var orderItem = new OrderItem {Item = item, Order = order,Count = count};
-                db.OrderItems.Add(orderItem);    
+                var orderItem = new OrderItem { Item=item,Order=order, Count=countArray[i]};
+                db.OrderItems.Add(orderItem);
                 cost += item.Cost;
             }
 
@@ -88,5 +78,7 @@ namespace OnlineShopKendo.Controllers
             Response.Cookies.Add(cookie);
             return Redirect(returnUrl);
         }
+
+       
     }
 }

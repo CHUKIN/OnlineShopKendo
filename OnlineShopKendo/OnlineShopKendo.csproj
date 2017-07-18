@@ -341,6 +341,7 @@
     <Content Include="Views\Roles\Index.cshtml" />
     <Content Include="Views\Home\PersonalArea.cshtml" />
     <Content Include="Views\Error\Unauthorized.cshtml" />
+    <Content Include="Views\Item\Manage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Site.css" />

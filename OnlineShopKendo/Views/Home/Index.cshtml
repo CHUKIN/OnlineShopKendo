@@ -78,6 +78,9 @@
                    .ClientTemplate("  <img src='/Item/GetImage/#: Id #' style='width: 100px; '>");
           columns.Template(@<text>
         </text>)
+                   .ClientTemplate(" <input type='number' id='#: Id #' value='1' min='1' /> ");
+          columns.Template(@<text>
+        </text>)
                    .ClientTemplate(" <button onclick='remove(#: Id #)'>X</button> ");
       })
       .DataSource(dataSource =>
@@ -111,8 +114,22 @@
 
 
     function choose(id,text,cost) {
-    var grid = $("#grid").data("kendoGrid");
-    grid.dataSource.add({ Id: id, Text: text, Cost: cost });
+        var grid = $("#grid").data("kendoGrid");
+        var dataSource = grid.dataSource;
+        var raw = dataSource.data();
+        var length = raw.length;
+        var result = true;
+        for (var i = 0; i < length; i++) {
+            if (raw[i].Id === id) {
+                result = false;
+            }
+        }
+
+        if (result) {
+            grid.dataSource.add({ Id: id, Text: text, Cost: cost });
+        } else {
+            document.getElementById(id).value++;
+        }
         counting();
     }
     
@@ -133,14 +150,16 @@ function remove(id) {
 
 function sendOrder() {
     var idArray = [];
+    var countArray = [];
     var grid = $("#grid").data("kendoGrid");
     var dataSource = grid.dataSource;
     var raw = dataSource.data();
     var length = raw.length;
     for (var i = 0; i < length; i++) {
         idArray.push(raw[i].Id);
+        countArray.push(document.getElementById(raw[i].Id).value);
     }
-        $.post('/Home/Order', { idArray },
+        $.post('/Home/Order', { idArray, countArray},
             function (data) {
                 console.log(data);
                 alert("@Resources.Resource.Ordered");

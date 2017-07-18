@@ -52,6 +52,22 @@ namespace OnlineShopKendo.Controllers
             return File(item.Image, item.ImageMimeType);
         }
 
+        public ActionResult Manage()
+        {
+            ViewBag.Items = db.Items.ToList();
+            return View();
+        }
+
+        public ActionResult Read()
+        {   
+            IList<Item> items = new List<Item>();
+            foreach (var item in db.Items.ToList())
+            {
+                items.Add(new Item {Id = item.Id, Cost = item.Cost});
+            }
+            return Json(items,JsonRequestBehavior.AllowGet);
+        }
+
 
     }
 }

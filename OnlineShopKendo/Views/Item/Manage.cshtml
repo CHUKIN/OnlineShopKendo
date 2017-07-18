@@ -1,0 +1,17 @@
+﻿@(Html.Kendo().Grid((IEnumerable<OnlineShopKendo.Models.Item>)ViewBag.Items)
+      .Name("grid")
+      .Columns(columns =>
+      {
+          //Create a column bound to the ProductID property.
+          columns.Bound(product => product.Id);
+          //Create a column bound to the ProductName property.
+          columns.Bound(product => product.Descriptions.First().Text);
+          columns.Bound(product => product.Descriptions.Last().Text);
+          columns.Bound(product => product.Cost);
+          columns.Template(@<text>
+                            </text>)
+              .ClientTemplate("  <img src='/Item/GetImage/#: Id #' style='width: 100px; '>");
+      })
+      .Pageable() //Enable the paging.
+      .Sortable() //Enable the sorting.
+      )
