@@ -219,4 +219,10 @@
   <data name="YourShopingCart" xml:space="preserve">
     <value>Your shopping cart</value>
   </data>
+  <data name="Count" xml:space="preserve">
+    <value>Count</value>
+  </data>
+  <data name="IncorrectLoginOrPassword" xml:space="preserve">
+    <value>Incorrect Login Or Password</value>
+  </data>
 </root>

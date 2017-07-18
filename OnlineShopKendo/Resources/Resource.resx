@@ -216,6 +216,12 @@
   <data name="YourShopingCart" xml:space="preserve">
     <value>Ваша корзина</value>
   </data>
+  <data name="Count" xml:space="preserve">
+    <value>Количество</value>
+  </data>
+  <data name="IncorrectLoginOrPassword" xml:space="preserve">
+    <value>Неверный логин или пароль</value>
+  </data>
   <data name="NameRequired" xml:space="preserve">
     <value>Введите Логин</value>
   </data>

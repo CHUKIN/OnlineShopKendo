@@ -142,14 +142,13 @@ function sendOrder() {
     }
         $.post('/Home/Order', { idArray },
             function (data) {
-                //console.log(data);
-                alert(@Resources.Resource.Ordered);
+                console.log(data);
+                alert("@Resources.Resource.Ordered");
             });
 
     for (var i = 0; i < length; i++) {
         dataSource.remove(raw[0]);
     }
-    alert(@Resources.Resource.Ordered);
 }
 </script>
 

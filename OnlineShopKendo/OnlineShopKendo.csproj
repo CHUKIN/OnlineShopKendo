@@ -206,49 +206,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201707170912053_1.cs" />
-    <Compile Include="Migrations\201707170912053_1.Designer.cs">
-      <DependentUpon>201707170912053_1.cs</DependentUpon>
+    <Compile Include="Migrations\201707180932435_1.cs" />
+    <Compile Include="Migrations\201707180932435_1.Designer.cs">
+      <DependentUpon>201707180932435_1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201707170933224_2.cs" />
-    <Compile Include="Migrations\201707170933224_2.Designer.cs">
-      <DependentUpon>201707170933224_2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201707170946102_3.cs" />
-    <Compile Include="Migrations\201707170946102_3.Designer.cs">
-      <DependentUpon>201707170946102_3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201707171101103_4.cs" />
-    <Compile Include="Migrations\201707171101103_4.Designer.cs">
-      <DependentUpon>201707171101103_4.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201707171114115_5.cs" />
-    <Compile Include="Migrations\201707171114115_5.Designer.cs">
-      <DependentUpon>201707171114115_5.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201707171120199_6.cs" />
-    <Compile Include="Migrations\201707171120199_6.Designer.cs">
-      <DependentUpon>201707171120199_6.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201707171140163_7.cs" />
-    <Compile Include="Migrations\201707171140163_7.Designer.cs">
-      <DependentUpon>201707171140163_7.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201707180709011_10.cs" />
-    <Compile Include="Migrations\201707180709011_10.Designer.cs">
-      <DependentUpon>201707180709011_10.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201707180731537_11.cs" />
-    <Compile Include="Migrations\201707180731537_11.Designer.cs">
-      <DependentUpon>201707180731537_11.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201707180734194_12.cs" />
-    <Compile Include="Migrations\201707180734194_12.Designer.cs">
-      <DependentUpon>201707180734194_12.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201707180740535_13.cs" />
-    <Compile Include="Migrations\201707180740535_13.Designer.cs">
-      <DependentUpon>201707180740535_13.cs</DependentUpon>
+    <Compile Include="Migrations\201707180938012_2.cs" />
+    <Compile Include="Migrations\201707180938012_2.Designer.cs">
+      <DependentUpon>201707180938012_2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationContext.cs" />
@@ -263,6 +227,7 @@
     <Compile Include="Models\Language.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\OrderItem.cs" />
     <Compile Include="Models\RegisterModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -282,6 +247,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\OnlineShopKendoo.mdf" />
+    <Content Include="App_Data\OnlineShopKendoo_log.ldf">
+      <DependentUpon>OnlineShopKendoo.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -371,9 +340,7 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Project_Readme.html" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
@@ -381,38 +348,11 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201707170912053_1.resx">
-      <DependentUpon>201707170912053_1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201707180932435_1.resx">
+      <DependentUpon>201707180932435_1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707170933224_2.resx">
-      <DependentUpon>201707170933224_2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707170946102_3.resx">
-      <DependentUpon>201707170946102_3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707171101103_4.resx">
-      <DependentUpon>201707171101103_4.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707171114115_5.resx">
-      <DependentUpon>201707171114115_5.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707171120199_6.resx">
-      <DependentUpon>201707171120199_6.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707171140163_7.resx">
-      <DependentUpon>201707171140163_7.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707180709011_10.resx">
-      <DependentUpon>201707180709011_10.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707180731537_11.resx">
-      <DependentUpon>201707180731537_11.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707180734194_12.resx">
-      <DependentUpon>201707180734194_12.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707180740535_13.resx">
-      <DependentUpon>201707180740535_13.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201707180938012_2.resx">
+      <DependentUpon>201707180938012_2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Resource.en.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

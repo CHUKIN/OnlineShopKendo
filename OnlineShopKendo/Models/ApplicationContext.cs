@@ -18,6 +18,7 @@ namespace OnlineShopKendo.Models
 
         public virtual DbSet<Description> Descriptions { get; set; }
 
+        public virtual DbSet<OrderItem> OrderItems { get; set; }
 
 
         //protected override void OnModelCreating(DbModelBuilder modelBuilder)

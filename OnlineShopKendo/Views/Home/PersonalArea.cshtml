@@ -1,7 +1,7 @@
 ﻿@using System.Data.Entity
 @using Microsoft.AspNet.Identity
 @using OnlineShopKendo.Models
-@model OnlineShopKendo.Models.ApplicationContext
+@model List<Order>
 @{
     ViewBag.Title = Resources.Resource.PersonalArea;
 }
@@ -17,24 +17,27 @@
 @{
     List<Item> items = new List<Item>();
     string userId = User.Identity.GetUserId();
-    var orders = Model.Orders.Where(i => i.UserId == userId).Include(i=>i.Items);
+    var orders = Model.Where(i => i.User.Id==User.Identity.GetUserId());
 
-    foreach (var order in orders.ToList())
+    foreach (var order in orders)
     {
         <div class="panel panel-default">
             <div class="panel-body">
-                <p>@Resources.Resource.OrderNumber @order.Id. @Resources.Resource.TotalCost: @order.Cost </p>
+                <p>@Resources.Resource.OrderNumber @order.OrderId. @Resources.Resource.TotalCost: @order.Cost </p>
                 
-                @foreach (var item in order.Items)
+                @foreach (var orderItem in order.OrderItems)
                 {
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <p>Id @Resources.Resource.Item @item.Id</p>
-                        <p>@Resources.Resource.Text @Resources.Resource.Item @item.Descriptions.First(i => i.Language.Code == Request.Cookies["lang"].Value).Text</p>
-                        <p>@Resources.Resource.Cost @Resources.Resource.Item @item.Cost</p>
-                        <img src="@Url.Action("GetImage", "Item", new {item.Id})" style="width: 100px;">
-                    </div>
-                </div>               
+
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <p>Id @Resources.Resource.Item @orderItem.ItemId</p>
+                                <p>@Resources.Resource.Text @Resources.Resource.Item @orderItem.Item.Descriptions.First(i => i.Language.Code == Request.Cookies["lang"].Value).Text</p>
+                                <p>@Resources.Resource.Cost @Resources.Resource.Item @orderItem.Item.Cost</p>
+                                <p>@Resources.Resource.Count @Resources.Resource.Item @orderItem.Count</p>
+                                <img src="@Url.Action("GetImage", "Item", new {orderItem.Item.Id})" style="width: 100px;">
+                            </div>
+                        </div>       
+
                 }
             </div>
         </div>

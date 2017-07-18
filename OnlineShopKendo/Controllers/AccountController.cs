@@ -85,7 +85,7 @@ namespace OnlineShopKendo.Controllers
                 ApplicationUser user = await UserManager.FindAsync(model.Login, model.Password);
                 if (user == null)
                 {
-                    ModelState.AddModelError("", "Неверный логин или пароль.");
+                    ModelState.AddModelError("", Resources.Resource.IncorrectLoginOrPassword);
                 }
                 else
                 {

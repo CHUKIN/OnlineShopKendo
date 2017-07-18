@@ -23,52 +23,45 @@ namespace OnlineShopKendo.Controllers
         ApplicationContext db = new ApplicationContext();
         public ActionResult Index()
         {
-
-            //foreach (var item in db.Items)
-            //{
-            //    foreach (var dec in item.Descriptions)
-            //    {
-            //        if (dec.Code == Request.Cookies["lang"].Value)
-            //        {
-            //            item.Text = dec.Text;
-            //        }
-            //    }
-            //}
-            //db.SaveChanges();
-            //return View(db.Items.ToList());
             return View(db.Items.ToList());
-
         }
 
         public ActionResult Order(int[] idArray)
         {
             ApplicationUser user = db.Users.Find(User.Identity.GetUserId());
-            Order order = new Order { Date = DateTime.Now, UserId = user.Id };
+            Order order = new Order { Date = DateTime.Now,User = user};
             int cost = 0;
             db.Orders.Add(order);
-            db.SaveChanges();
 
-            foreach (var id in idArray)
+            //Array.Sort(idArray);
+
+
+            foreach (var id in idArray.Distinct())
             {
                 var item = db.Items.Find(id);
-                if (item != null)
+                int count = 0;
+                foreach (var i in idArray)
                 {
-                   // db.Orderitems.Add(new OrderItems {OrderId = order.Id, ItemId = item.Id});
-                    order.Items.Add(item);
-                    cost += item.Cost;
+                    if (id == i)
+                    {
+                        count++;
+                    }
                 }
+                var orderItem = new OrderItem {Item = item, Order = order,Count = count};
+                db.OrderItems.Add(orderItem);    
+                cost += item.Cost;
             }
-            db.Orders.Find(order.Id).Cost = cost;
+
+            order.Cost = cost;
             db.SaveChanges();
-
-
+            
             string result = "Успешно";
-            return Content(result);
+            return Content(idArray.Length.ToString());
         }
 
         public ActionResult PersonalArea()
         {
-            return View(db);
+            return View(db.Orders.ToList());
         }
 
         public ActionResult ChangeCulture(string lang)

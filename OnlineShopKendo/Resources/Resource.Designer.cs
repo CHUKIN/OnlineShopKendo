@@ -115,6 +115,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Количество.
+        /// </summary>
+        public static string Count {
+            get {
+                return ResourceManager.GetString("Count", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Текущая стоимость.
         /// </summary>
         public static string CurrentCost {
@@ -174,6 +183,15 @@ namespace Resources {
         public static string Image {
             get {
                 return ResourceManager.GetString("Image", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Неверный логин или пароль.
+        /// </summary>
+        public static string IncorrectLoginOrPassword {
+            get {
+                return ResourceManager.GetString("IncorrectLoginOrPassword", resourceCulture);
             }
         }
         
