@@ -13,5 +13,7 @@ namespace OnlineShopKendo.Models
         public string Description { get; set; }
 
         public int Permission { get; set; }
+
+
     }
 }

@@ -7,13 +7,13 @@ namespace OnlineShopKendo.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.0-30225")]
-    public sealed partial class _1 : IMigrationMetadata
+    public sealed partial class _10 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(_1));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(_10));
         
         string IMigrationMetadata.Id
         {
-            get { return "201707180932435_1"; }
+            get { return "201707181041485_10"; }
         }
         
         string IMigrationMetadata.Source

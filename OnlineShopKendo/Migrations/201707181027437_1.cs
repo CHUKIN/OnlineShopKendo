@@ -129,12 +129,38 @@ namespace OnlineShopKendo.Migrations
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
+                "dbo.MenuLanguages",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Text = c.String(),
+                        Language_Id = c.Int(),
+                        Menu_Id = c.Int(),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Languages", t => t.Language_Id)
+                .ForeignKey("dbo.Menus", t => t.Menu_Id)
+                .Index(t => t.Language_Id)
+                .Index(t => t.Menu_Id);
+            
+            CreateTable(
+                "dbo.Menus",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Name = c.String(),
+                        Permission = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
                 "dbo.AspNetRoles",
                 c => new
                     {
                         Id = c.String(nullable: false, maxLength: 128),
                         Name = c.String(nullable: false, maxLength: 256),
                         Description = c.String(),
+                        Permission = c.Int(),
                         Discriminator = c.String(nullable: false, maxLength: 128),
                     })
                 .PrimaryKey(t => t.Id)
@@ -145,6 +171,8 @@ namespace OnlineShopKendo.Migrations
         public override void Down()
         {
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
+            DropForeignKey("dbo.MenuLanguages", "Menu_Id", "dbo.Menus");
+            DropForeignKey("dbo.MenuLanguages", "Language_Id", "dbo.Languages");
             DropForeignKey("dbo.Descriptions", "Language_Id", "dbo.Languages");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.Orders", "User_Id", "dbo.AspNetUsers");
@@ -154,6 +182,8 @@ namespace OnlineShopKendo.Migrations
             DropForeignKey("dbo.OrderItems", "ItemId", "dbo.Items");
             DropForeignKey("dbo.Descriptions", "Item_Id", "dbo.Items");
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
+            DropIndex("dbo.MenuLanguages", new[] { "Menu_Id" });
+            DropIndex("dbo.MenuLanguages", new[] { "Language_Id" });
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
@@ -165,6 +195,8 @@ namespace OnlineShopKendo.Migrations
             DropIndex("dbo.Descriptions", new[] { "Language_Id" });
             DropIndex("dbo.Descriptions", new[] { "Item_Id" });
             DropTable("dbo.AspNetRoles");
+            DropTable("dbo.Menus");
+            DropTable("dbo.MenuLanguages");
             DropTable("dbo.Languages");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetUserLogins");

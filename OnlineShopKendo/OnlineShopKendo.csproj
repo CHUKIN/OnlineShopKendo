@@ -206,25 +206,29 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201707180932435_1.cs" />
-    <Compile Include="Migrations\201707180932435_1.Designer.cs">
-      <DependentUpon>201707180932435_1.cs</DependentUpon>
+    <Compile Include="Migrations\201707181027437_1.cs" />
+    <Compile Include="Migrations\201707181027437_1.Designer.cs">
+      <DependentUpon>201707181027437_1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201707180938012_2.cs" />
-    <Compile Include="Migrations\201707180938012_2.Designer.cs">
-      <DependentUpon>201707180938012_2.cs</DependentUpon>
+    <Compile Include="Migrations\201707181041485_10.cs" />
+    <Compile Include="Migrations\201707181041485_10.Designer.cs">
+      <DependentUpon>201707181041485_10.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201707181014276_10.cs" />
-    <Compile Include="Migrations\201707181014276_10.Designer.cs">
-      <DependentUpon>201707181014276_10.cs</DependentUpon>
+    <Compile Include="Migrations\201707181048066_11.cs" />
+    <Compile Include="Migrations\201707181048066_11.Designer.cs">
+      <DependentUpon>201707181048066_11.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201707181016083_11.cs" />
-    <Compile Include="Migrations\201707181016083_11.Designer.cs">
-      <DependentUpon>201707181016083_11.cs</DependentUpon>
+    <Compile Include="Migrations\201707181056290_13.cs" />
+    <Compile Include="Migrations\201707181056290_13.Designer.cs">
+      <DependentUpon>201707181056290_13.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201707181019511_13.cs" />
-    <Compile Include="Migrations\201707181019511_13.Designer.cs">
-      <DependentUpon>201707181019511_13.cs</DependentUpon>
+    <Compile Include="Migrations\201707181106286_15.cs" />
+    <Compile Include="Migrations\201707181106286_15.Designer.cs">
+      <DependentUpon>201707181106286_15.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201707181109211_16.cs" />
+    <Compile Include="Migrations\201707181109211_16.Designer.cs">
+      <DependentUpon>201707181109211_16.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationContext.cs" />
@@ -360,20 +364,23 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201707180932435_1.resx">
-      <DependentUpon>201707180932435_1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201707181027437_1.resx">
+      <DependentUpon>201707181027437_1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707180938012_2.resx">
-      <DependentUpon>201707180938012_2.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201707181041485_10.resx">
+      <DependentUpon>201707181041485_10.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707181014276_10.resx">
-      <DependentUpon>201707181014276_10.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201707181048066_11.resx">
+      <DependentUpon>201707181048066_11.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707181016083_11.resx">
-      <DependentUpon>201707181016083_11.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201707181056290_13.resx">
+      <DependentUpon>201707181056290_13.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707181019511_13.resx">
-      <DependentUpon>201707181019511_13.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201707181106286_15.resx">
+      <DependentUpon>201707181106286_15.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707181109211_16.resx">
+      <DependentUpon>201707181109211_16.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Resource.en.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

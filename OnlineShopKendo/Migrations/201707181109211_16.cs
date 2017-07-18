@@ -3,7 +3,7 @@ namespace OnlineShopKendo.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class _2 : DbMigration
+    public partial class _16 : DbMigration
     {
         public override void Up()
         {

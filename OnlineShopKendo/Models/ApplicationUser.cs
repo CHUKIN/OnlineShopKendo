@@ -13,5 +13,6 @@ namespace OnlineShopKendo.Models
         }
 
         public virtual List<Order> Orders { get; set; }
+
     }
 }

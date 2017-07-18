@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNet.Identity
+@using OnlineShopKendo.Models
+<!DOCTYPE html>
 <html> 
     <head>
         <title>@ViewBag.Title - My Telerik MVC Application</title>
@@ -40,11 +42,24 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink(Resources.Resource.Main, "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @*@Html.ActionLink(Resources.Resource.Main, "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink(Resources.Resource.Add, "Index", "Item")</li>
+                    @{
+                        var db = new ApplicationContext();
+                        int permission = 0;
+                        if (User.Identity.IsAuthenticated)
+                        {
+                                var idRole = db.Users.ToList().First(i => i.Id == User.Identity.GetUserId()).Roles.First().RoleId;
+                                permission = db.ApplicationRoles.First(i => i.Id == idRole).Permission;
+                        }
+                        foreach (var menu in db.Menus.Where(i=>i.Permission<=permission).ToList())
+                        {
+                            <li>@Html.ActionLink(menu.MenuLanguages.First(i=>i.Language.Code== Request.Cookies["lang"].Value).Text, menu.Action, menu.Controller)</li>
+                        }
+                    }
+                    @*<li>@Html.ActionLink(Resources.Resource.Add, "Index", "Item")</li>*@
                 </ul>
                 <div>
                     @using (Html.BeginForm("ChangeCulture", "Home"))

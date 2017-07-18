@@ -13,7 +13,7 @@ namespace OnlineShopKendo.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201707181016083_11"; }
+            get { return "201707181048066_11"; }
         }
         
         string IMigrationMetadata.Source

@@ -18,6 +18,7 @@ namespace OnlineShopKendo.Controllers
     [Culture]
     public class AccountController : Controller
         {
+        ApplicationContext db = new ApplicationContext();
         private ApplicationUserManager UserManager
         {
             get
@@ -36,7 +37,7 @@ namespace OnlineShopKendo.Controllers
         {
             if (ModelState.IsValid)
             {
-                ApplicationUser user = new ApplicationUser { UserName = model.Login, Email = model.Login };
+                ApplicationUser user = new ApplicationUser { UserName = model.Login, Email = model.Login};
                 IdentityResult result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
