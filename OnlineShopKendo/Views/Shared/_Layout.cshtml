@@ -21,8 +21,7 @@
 	<script src="https://kendo.cdn.telerik.com/2017.2.621/js/jszip.min.js"></script>
 	<script src="https://kendo.cdn.telerik.com/2017.2.621/js/kendo.all.min.js"></script>
 	<script src="https://kendo.cdn.telerik.com/2017.2.621/js/kendo.aspnetmvc.min.js"></script>
-	<script src="@Url.Content("~/Scripts/kendo.modernizr.custom.js")"></script>
-    <script type="text/javascript">
+<script type="text/javascript">
         var appInsights=window.appInsights||function(config){
             function r(config){t[config]=function(){var i=arguments;t.queue.push(function(){t[config].apply(t,i)})}}var t={config:config},u=document,e=window,o="script",s=u.createElement(o),i,f;for(s.src=config.url||"//az416426.vo.msecnd.net/scripts/a/ai.0.js",u.getElementsByTagName(o)[0].parentNode.appendChild(s),t.cookie=u.cookie,t.queue=[],i=["Event","Exception","Metric","PageView","Trace","Ajax"];i.length;)r("track"+i.pop());return r("setAuthenticatedUserContext"),r("clearAuthenticatedUserContext"),config.disableExceptionTracking||(i="onerror",r("_"+i),f=e[i],e[i]=function(config,r,u,e,o){var s=f&&f(config,r,u,e,o);return s!==!0&&t["_"+i](config,r,u,e,o),s}),t
         }({
@@ -32,6 +31,7 @@
         window.appInsights=appInsights;
         appInsights.trackPageView();
     </script>
+	<script src="@Url.Content("~/Scripts/kendo.modernizr.custom.js")"></script>
 </head>
     <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -51,27 +51,20 @@
                         int permission = 0;
                         if (User.Identity.IsAuthenticated)
                         {
-                                var idRole = db.Users.ToList().First(i => i.Id == User.Identity.GetUserId()).Roles.First().RoleId;
-                                permission = db.ApplicationRoles.First(i => i.Id == idRole).Permission;
+                            var idRole = db.Users.ToList().First(i => i.Id == User.Identity.GetUserId()).Roles.First().RoleId;
+                            permission = db.ApplicationRoles.First(i => i.Id == idRole).Permission;
                         }
-                        foreach (var menu in db.Menus.Where(i=>i.Permission<=permission).ToList())
-                        {
-                            <li>@Html.ActionLink(menu.MenuLanguages.First(i=>i.Language.Code== Request.Cookies["lang"].Value).Text, menu.Action, menu.Controller)</li>
+                       
+                            foreach (var menu in db.Menus.Where(i=>i.Permission<=permission).ToList())
+                            {
+                            <li>@Html.ActionLink(menu.MenuLanguages.First(i=> {
+                                                                                  var requestCookie = Request.Cookies["lang"];
+                                                                                  return requestCookie != null && i.Language.Code == requestCookie.Value; }).Text, menu.Action, menu.Controller)</li>
                         }
                     }
                     @*<li>@Html.ActionLink(Resources.Resource.Add, "Index", "Item")</li>*@
                 </ul>
-                <div>
-                    @using (Html.BeginForm("ChangeCulture", "Home"))
-                    { 
-                        <select name="lang">
-                            <option disabled selected>@Resources.Resource.ChooseLang</option>
-                            <option value="ru">Русский</option>
-                            <option value="en">English</option>
-                        </select>
-                        <input type="submit" name="submit" value="@Resources.Resource.ChooseLang">
-                    }
-                </div>
+                
                 @Html.Partial("LoginPartial")
             </div>
         </div>
@@ -93,7 +86,17 @@
                 $("#responsive-panel").getKendoResponsivePanel().toggle();
             }
         </script>
-
+        <div>
+                    @using (Html.BeginForm("ChangeCulture", "Home"))
+                    { 
+                        <select name="lang">
+                            <option disabled selected>@Resources.Resource.ChooseLang</option>
+                            <option value="ru">Русский</option>
+                            <option value="en">English</option>
+                        </select>
+                        <input type="submit" name="submit" value="@Resources.Resource.ChooseLang">
+                    }
+                </div>
         @Scripts.Render("~/bundles/bootstrap")
         @RenderSection("scripts", required: false)
     </body>

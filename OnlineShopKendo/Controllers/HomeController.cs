@@ -79,6 +79,16 @@ namespace OnlineShopKendo.Controllers
             return Redirect(returnUrl);
         }
 
-       
+
+        public ActionResult lol()
+        {
+            HttpCookie cookie = Request.Cookies["lang"];
+                cookie = new HttpCookie("lang");
+                cookie.HttpOnly = false;
+                cookie.Value = "ru";
+                cookie.Expires = DateTime.Now.AddYears(1);
+            Response.Cookies.Add(cookie);
+            return Redirect("/Home/Index");
+        }  
     }
 }
