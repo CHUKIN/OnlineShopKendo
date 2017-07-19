@@ -9,6 +9,7 @@
             <li>
                 @Html.ActionLink(Resources.Resource.Hello+" " + User.Identity.GetUserName(), "PersonalArea", "Home", routeValues: null, htmlAttributes: new { title = "Manage" })
             </li>
+           
             <li><a href="javascript:document.getElementById('logoutForm').submit()">@Resources.Resource.LogOut</a></li>
         </ul>
     }

@@ -28,6 +28,9 @@ namespace OnlineShopKendo.Filters
             }
             Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(cultureName);
             Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture(cultureName);
+
+
+
         }
 
         public void OnActionExecuting(ActionExecutingContext filterContext)

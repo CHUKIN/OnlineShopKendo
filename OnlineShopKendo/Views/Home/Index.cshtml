@@ -1,182 +1,286 @@
 ﻿@using OnlineShopKendo.Models
 @model List<Item>
 
-@{
-    if (Model.Any())
-    {
-        <div class="container">
-            <div id="myCarousel" class="carousel slide" data-ride="carousel">
 
-                <div class="carousel-inner">
-                    <h2>@Resources.Resource.HelpAdd</h2>
-                    <div class="item active" onclick="choose(@Model.OrderBy(i => i.Id).First().Id, '@Model.OrderBy(i => i.Id).First().Descriptions.First(i=>i.Language.Code== Request.Cookies["lang"].Value).Text', @Model.OrderBy(i => i.Id).First().Cost)">
-                        <div class="carousel-caption">
-                            <div class="panel panel-default">
-                                <div class="panel-body">
-                                    <h3 >@Resources.Resource.Text: @Model.OrderBy(i => i.Id).First().Descriptions.First(i=>i.Language.Code== Request.Cookies["lang"].Value).Text</h3>
-                                    <h4>@Resources.Resource.Cost: @Model.OrderBy(i => i.Id).First().Cost</h4>
-                                </div>
-                            </div>
-                   
-                        </div>
-                        <img src="@Url.Action("GetImage", "Item", new {Model.OrderBy(i => i.Id).First().Id})" style="width: 1000px;">
 
-                    </div>
-            
-                    @{
-                        foreach (var item in Model.OrderBy(i => i.Id).Skip(1))
-                        {
-                            <div class="item" onclick="choose(@item.Id, '@item.Descriptions.First(i => i.Language.Code == Request.Cookies["lang"].Value).Text', @item.Cost)">
-                                <div class="carousel-caption">
-                                    <div class="panel panel-default">
-                                        <div class="panel-body">
-                                            <h3>@Resources.Resource.Text: @item.Descriptions.First(i => i.Language.Code == Request.Cookies["lang"].Value).Text</h3>
-                                            <h4>@Resources.Resource.Cost: @item.Cost</h4>
-                                        </div>
-                                    </div>
-                            
-                                </div>
-                                <img src="@Url.Action("GetImage", "Item", new {item.Id})" style="width: 1000px;">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-4">
 
-                            </div>
-                        }
-                    }
-            
-           
-                </div>
+            <p>@Resources.Resource.YourShopingCart</p> @Resources.Resource.CurrentCost:
+            <div id="cost" value="0"></div>
 
-                <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-                    <span class="glyphicon glyphicon-chevron-left"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="right carousel-control" href="#myCarousel" data-slide="next">
-                    <span class="glyphicon glyphicon-chevron-right"></span>
-                    <span class="sr-only">Next</span>
-                </a>
-            </div>
+            @(Html.Kendo().Grid<OnlineShopKendo.Models.Item>() //Bind the grid to ViewBag.Products
+              .Name("grid")
+              .Columns(columns =>
+              {
+                  //Create a column bound to the ProductID property.
+                  columns.Bound<int>(product => product.Id);
+                  columns.Bound<string>(product => product.Descriptions.First().Text);
+                  columns.Bound<int>(product => product.Cost);
+                  columns.Template(@<text>
+                </text>)
+                      .ClientTemplate("  <img src='/Item/GetImage/#: Id #' style='width: 100px; '>");
+                  columns.Template(@<text>
+                </text>)
+                      .ClientTemplate(" <input type='number' id='#: Id #' value='1' min='1' onchange='changeNumber(#: Id #,value)'/> ");
+                  columns.Template(@<text>
+                </text>)
+                      .ClientTemplate(" <button onclick='remove(#: Id #)'>X</button> ");
+              })
+              .DataSource(dataSource =>
+              {
+
+              })
+              //.Pageable() //Enable the paging.
+              .Sortable() //Enable the sorting.
+            )
+
+            @{
+                if (User.Identity.IsAuthenticated)
+                {
+                    <button onclick="sendOrder()">@Resources.Resource.ToOrder</button>
+                }
+                else
+                {
+                    <p>@Resources.Resource.HelpAddAuthorize</p>
+                }
+            }
         </div>
-                        }
-                        else
-                        {
-                            <h2>@Resources.Resource.NoProduct</h2>
-                        }
-}
+        <div class="col-lg-8">
+            @{
+                if (Model.Any())
+                {
+                    <div class="container">
+                        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+
+                            <div class="carousel-inner">
+                                <h2>@Resources.Resource.HelpAdd</h2>
+                                <div class="item active" onclick="choose(@Model.OrderBy(i => i.Id).First().Id, '@Model.OrderBy(i => i.Id).First().Descriptions.First(i => i.Language.Code == Request.Cookies["lang"].Value).Text', @Model.OrderBy(i => i.Id).First().Cost)">
+                                    <div class="carousel-caption">
+                                        <div class="panel panel-default">
+                                            <div class="panel-body">
+                                                <h3>@Resources.Resource.Text: @Model.OrderBy(i => i.Id).First().Descriptions.First(i => i.Language.Code == Request.Cookies["lang"].Value).Text</h3>
+                                                <h4>@Resources.Resource.Cost: @Model.OrderBy(i => i.Id).First().Cost</h4>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <img src="@Url.Action("GetImage", "Item", new {Model.OrderBy(i => i.Id).First().Id})" style="width: 1000px;">
+
+                                </div>
+
+                                @{
+                                    foreach (var item in Model.OrderBy(i => i.Id).Skip(1))
+                                    {
+                                        <div class="item" onclick="choose(@item.Id, '@item.Descriptions.First(i => i.Language.Code == Request.Cookies["lang"].Value).Text', @item.Cost)">
+                                            <div class="carousel-caption">
+                                                <div class="panel panel-default">
+                                                    <div class="panel-body">
+                                                        <h3>@Resources.Resource.Text: @item.Descriptions.First(i => i.Language.Code == Request.Cookies["lang"].Value).Text</h3>
+                                                        <h4>@Resources.Resource.Cost: @item.Cost</h4>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <img src="@Url.Action("GetImage", "Item", new {item.Id})" style="width: 1000px;">
+
+                                        </div>
+                                    }
+                                }
 
 
-<p>@Resources.Resource.YourShopingCart</p> @Resources.Resource.CurrentCost: <div id="cost"></div>
+                            </div>
 
-@(Html.Kendo().Grid<OnlineShopKendo.Models.Item>() //Bind the grid to ViewBag.Products
-      .Name("grid")
-      .Columns(columns =>
-      {
-          //Create a column bound to the ProductID property.
-          columns.Bound<int>(product => product.Id);
-          columns.Bound<string>(product => product.Descriptions.First().Text);
-          columns.Bound<int>(product => product.Cost);
-          columns.Template(@<text>
-                    </text>)
-                   .ClientTemplate("  <img src='/Item/GetImage/#: Id #' style='width: 100px; '>");
-          columns.Template(@<text>
-        </text>)
-                   .ClientTemplate(" <input type='number' id='#: Id #' value='1' min='1' /> ");
-          columns.Template(@<text>
-        </text>)
-                   .ClientTemplate(" <button onclick='remove(#: Id #)'>X</button> ");
-      })
-      .DataSource(dataSource =>
-      {
+                            <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                                <span class="glyphicon glyphicon-chevron-left"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                                <span class="glyphicon glyphicon-chevron-right"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </div>
+                    </div>
+                                    }
+                                    else
+                                    {
+                                        <h2>@Resources.Resource.NoProduct</h2>
+                                    }
+            }
+        </div>
 
-      })
-      //.Pageable() //Enable the paging.
-      .Sortable() //Enable the sorting.
-      )
+</div>
+    </div>
 
-@{
-    if (User.Identity.IsAuthenticated)
-    {
-        <button onclick="sendOrder()">@Resources.Resource.ToOrder</button>
-    }
-    else
-    {
-        <p>@Resources.Resource.HelpAddAuthorize</p>
-    }
-}
 
-<script>
-    function counting() {
-        var totalCost = 0;
-        var grid = $("#grid").data("kendoGrid");
-        for (var i = 0; i < grid.dataSource.data().length;i++) {
-            totalCost += grid.dataSource.data()[i].Cost;
+
+
+
+
+
+
+    <script>
+
+        window.onload = function() {
+            updateGrid();
+        };
+
+        function changeNumber(id, value) {
+            var item = JSON.parse(localStorage.getItem(id));
+            localStorage.setItem(id,JSON.stringify({Id:id,Text:item.Text,Cost:item.Cost,Count:Number.parseInt(value)}));
+            counting();
         }
-        document.getElementById('cost').innerHTML = totalCost;
-    }
 
 
-    function choose(id,text,cost) {
-        var grid = $("#grid").data("kendoGrid");
-        var dataSource = grid.dataSource;
-        var raw = dataSource.data();
-        var length = raw.length;
-        var result = true;
-        for (var i = 0; i < length; i++) {
-            if (raw[i].Id === id) {
-                result = false;
+        function updateGrid() {
+            //var grid = $("#grid").data("kendoGrid");
+            //var dataSource = grid.dataSource;
+            //var raw = dataSource.data();
+            //var length = raw.length;
+            //for (var i = 0; i < length; i++) {
+            //    dataSource.remove(raw[0]);
+            //}
+            //for (var i = 0; i < localStorage.length; i++) {
+            //    var item = JSON.parse(localStorage.getItem(localStorage.key(i)));
+
+            //    grid.dataSource.add({ Id: item.Id, Text: item.Text, Cost: item.Cost });
+            //    document.getElementById(item.Id).value = item.Count;
+            //}
+            //for (var i = 0; i < localStorage.length; i++) {
+            //    var item = JSON.parse(localStorage.getItem(localStorage.key(i)));
+            //    document.getElementById(item.Id).value = item.Count;
+            //}
+
+            var grid = $("#grid").data("kendoGrid");
+            var dataSource = grid.dataSource;
+            var raw = dataSource.data();
+            var length = raw.length;
+            for (var i = 0; i < length; i++) {
+                dataSource.remove(raw[0]);
+            }
+            for (var i = 0; i < localStorage.length; i++) {
+                var item = JSON.parse(localStorage.getItem(localStorage.key(i)));
+                dataSource.add({ Id: item.Id, Text: item.Text, Cost: item.Cost });
+            }
+            for (var i = 0; i < localStorage.length; i++) {
+                var item = JSON.parse(localStorage.getItem(localStorage.key(i)));
+                document.getElementById(item.Id).value = item.Count;
+            }
+
+        }
+
+
+        function counting() {
+
+            //var totalCost = 0;
+            //var grid = $("#grid").data("kendoGrid");
+            //for (var i = 0; i < grid.dataSource.data().length;i++) {
+            //    totalCost += grid.dataSource.data()[i].Cost * document.getElementById(grid.dataSource.data()[i].Id).value;
+            //    var element = grid.dataSource.data()[i];
+            //    localStorage.setItem(element.Id, JSON.stringify({ Id: element.Id, Text: element.Text, Cost: element.Cost, Count: document.getElementById(element.Id).value }));
+            //}
+            //document.getElementById('cost').innerHTML = totalCost;
+            //updateGrid();
+
+            var totalCost = 0;
+            for (var i = 0; i < localStorage.length; i++) {
+                var id = localStorage.key(i);    
+                var element = JSON.parse(localStorage.getItem(id));
+                totalCost += element.Cost * element.Count;
+            }
+            document.getElementById('cost').innerHTML = totalCost;
+            updateGrid();
+        }
+
+
+        function choose(id, text, cost) {
+
+            //var grid = $("#grid").data("kendoGrid");
+            //var dataSource = grid.dataSource;
+            //var raw = dataSource.data();
+            //var length = raw.length;
+            //var result = true;
+            //for (var i = 0; i < length; i++) {
+            //    if (raw[i].Id === id) {
+            //        result = false;
+            //    }
+            //}
+            //if (result) {
+            //    grid.dataSource.add({ Id: id, Text: text, Cost: cost });
+            //    localStorage.setItem(id, JSON.stringify({ Id: id, Text: text, Cost: cost, Count: 1 }));
+            //} else {
+            //    document.getElementById(id).value++;
+            //    localStorage.setItem(id, JSON.stringify({ Id: id, Text: text, Cost: cost, Count: document.getElementById(id).value }));
+            //}
+            //counting();
+
+            var grid = $("#grid").data("kendoGrid");
+            var dataSource = grid.dataSource;
+            var raw = dataSource.data();
+            var length = raw.length;
+            var result = true;
+            var item = localStorage.getItem(id);
+            if (item === null) {
+                localStorage.setItem(id, JSON.stringify({ Id: id, Text: text, Cost: cost, Count: 1 }));
+            } else {
+                item = JSON.parse(item);
+                localStorage.setItem(id, JSON.stringify({ Id: id, Text: text, Cost: cost, Count: item.Count+1 }));
+            }
+            counting();
+        }
+
+        function remove(id) {
+
+            //var grid = $("#grid").data("kendoGrid");
+            //var dataSource = grid.dataSource;
+            //var raw = dataSource.data();
+            //var length = raw.length;
+            //for (var i = 0; i < length; i++) {
+            //    if (raw[i].Id === id) {
+            //        dataSource.remove(raw[i]);
+            //        break;
+            //    }
+            //}
+            //localStorage.removeItem(id);
+            //counting();
+
+            localStorage.removeItem(id);
+            counting();
+
+
+        }
+
+        function sendOrder() {
+            var idArray = [];
+            var countArray = [];
+            var grid = $("#grid").data("kendoGrid");
+            var dataSource = grid.dataSource;
+            var raw = dataSource.data();
+            var length = raw.length;
+            for (var i = 0; i < length; i++) {
+                idArray.push(raw[i].Id);
+                countArray.push(document.getElementById(raw[i].Id).value);
+            }
+            $.post('/Home/Order', { idArray, countArray},
+                function (data) {
+                    console.log(data);
+                    alert("@Resources.Resource.Ordered");
+                });
+
+            for (var i = 0; i < length; i++) {
+                dataSource.remove(raw[0]);
             }
         }
+    </script>
 
-        if (result) {
-            grid.dataSource.add({ Id: id, Text: text, Cost: cost });
-        } else {
-            document.getElementById(id).value++;
+
+    <style>
+        h3 {
+            color: crimson;
         }
-        counting();
-    }
-    
-function remove(id) {
 
-    var grid = $("#grid").data("kendoGrid");
-    var dataSource = grid.dataSource;
-    var raw = dataSource.data();
-    var length = raw.length;
-    for (var i = 0; i < length; i++) {
-        if (raw[i].Id === id) {
-            dataSource.remove(raw[i]);
-            break;
+        h4 {
+            color: aqua;
         }
-    }
-    counting();
-}
-
-function sendOrder() {
-    var idArray = [];
-    var countArray = [];
-    var grid = $("#grid").data("kendoGrid");
-    var dataSource = grid.dataSource;
-    var raw = dataSource.data();
-    var length = raw.length;
-    for (var i = 0; i < length; i++) {
-        idArray.push(raw[i].Id);
-        countArray.push(document.getElementById(raw[i].Id).value);
-    }
-        $.post('/Home/Order', { idArray, countArray},
-            function (data) {
-                console.log(data);
-                alert("@Resources.Resource.Ordered");
-            });
-
-    for (var i = 0; i < length; i++) {
-        dataSource.remove(raw[0]);
-    }
-}
-</script>
-
-
-<style>
-    h3 {
-    color: crimson;
-}
-h4 {
-    color:aqua
-    }
-</style>
+    </style>

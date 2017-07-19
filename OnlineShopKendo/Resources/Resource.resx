@@ -225,4 +225,7 @@
   <data name="NameRequired" xml:space="preserve">
     <value>Введите Логин</value>
   </data>
+  <data name="RegUsername" xml:space="preserve">
+    <value>2</value>
+  </data>
 </root>

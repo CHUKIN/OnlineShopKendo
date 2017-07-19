@@ -3,21 +3,28 @@
     ViewBag.Title = Resources.Resource.AddItem;
 }
 
-<h2>@Resources.Resource.AddItem</h2>
-@ViewBag.Message
-@using (Html.BeginForm("Index", "Item", FormMethod.Post, new {enctype = "multipart/form-data"}))
-{
-    <label>@Resources.Resource.Text: (ru)</label>
-    <input required type="text" name="textRu"/>
-    <br/>
-    <label>@Resources.Resource.Text: (en)</label>
-    <input required type="text" name="textEn" />
-    <br />
-    <label>@Resources.Resource.Cost: </label>
-    <input required type="number" name="cost" />
-    <br/>
-    <label>@Resources.Resource.Image: </label>
-    <input required="" type="file" name="image"/>
-    <br/>
-    <input  type="submit" value="Save"/>
-}
+<div class="container">
+    <h2>@Resources.Resource.AddItem</h2>
+    @ViewBag.Message
+    @using (Html.BeginForm("Index", "Item", FormMethod.Post, new {enctype = "multipart/form-data"}))
+    {
+        <label>@Resources.Resource.Text: (ru)</label>
+        <input required class="form-control" type="text" name="textRu"/>
+        <br/>
+        <label>@Resources.Resource.Text: (en)</label>
+        <input required class="form-control" type="text" name="textEn" />
+        <br />
+        <label>@Resources.Resource.Cost: </label>
+        <input required class="form-control" type="number" name="cost" />
+        <br/>
+        <label>@Resources.Resource.Image: </label>
+        @(Html.Kendo().Upload()
+              .Name("files")
+              .HtmlAttributes(new { aria_label = "files" })
+              )
+        <br/>
+        <p style="padding-top: 1em; text-align: right">
+            <input type="submit" value="Submit" class="k-button k-primary" />
+        </p>
+    }
+</div>

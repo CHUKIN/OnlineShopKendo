@@ -202,6 +202,7 @@
     <Compile Include="Controllers\ItemController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Filters\CultureAttribute.cs" />
+    <Compile Include="Filters\LocalizedDisplayNameAttribute.cs" />
     <Compile Include="Filters\MyAuthAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -240,6 +241,7 @@
     <Compile Include="Models\Description.cs" />
     <Compile Include="Models\EditRoleModel.cs" />
     <Compile Include="Models\Item.cs" />
+    <Compile Include="Models\ItemView.cs" />
     <Compile Include="Models\Language.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\Menu.cs" />

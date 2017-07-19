@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Web;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -33,6 +34,11 @@ namespace OnlineShopKendo.Models
         //        .HasMany(e => e.Orders)
         //        .WithMany(e => e.Items)
         //        .Map(m => m.ToTable("OrderItems").MapLeftKey("Item_Id").MapRightKey("Order_Id"));
+        //}
+
+        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        //{
+        //    modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
         //}
 
         public static ApplicationContext Create()

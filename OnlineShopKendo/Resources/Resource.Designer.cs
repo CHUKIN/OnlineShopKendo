@@ -331,6 +331,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 2.
+        /// </summary>
+        public static string RegUsername {
+            get {
+                return ResourceManager.GetString("RegUsername", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Успешно добавлено.
         /// </summary>
         public static string SuccessAddItem {

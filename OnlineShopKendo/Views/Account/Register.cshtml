@@ -1,41 +1,46 @@
 ﻿@model OnlineShopKendo.Models.RegisterModel
 
-<h2>@Resources.Resource.Registration</h2>
+<div class="container">
+    <h2>@Resources.Resource.Registration</h2>
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-
-    <div>
-        <h4>@Resources.Resource.RegistrationUser</h4>
-        <hr />
-        @Html.ValidationSummary(false)
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
 
         <div>
-            @Resources.Resource.Login
-            <div>
-                @Html.EditorFor(model => model.Login)
-            </div>
-        </div>
+            <h4>@Resources.Resource.RegistrationUser</h4>
+            <hr />
+            @Html.ValidationSummary(false)
 
-        <div>
-            @Resources.Resource.Password
             <div>
-                @Html.EditorFor(model => model.Password)
+                @Resources.Resource.Login
+                <div>
+                    @Html.EditorFor(model => model.Login)
+                </div>
             </div>
-        </div>
 
-        <div>
-            @Resources.Resource.ConfirmPassword
             <div>
-                @Html.EditorFor(model => model.PasswordConfirm)
+                @Resources.Resource.Password
+                <div>
+                    @Html.EditorFor(model => model.Password)
+                </div>
             </div>
-        </div>
 
-        <div>
             <div>
-                <input type="submit" value=@Resources.Resource.Registered />
+                @Resources.Resource.ConfirmPassword
+                <div>
+                    @Html.EditorFor(model => model.PasswordConfirm)
+                </div>
+            </div>
+
+            <div>
+                <div>
+                    <input type="submit" value=@Resources.Resource.Registered />
+                </div>
             </div>
         </div>
-    </div>
-}
+    }
+</div>
+
+
+

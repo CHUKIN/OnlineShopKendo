@@ -1,17 +1,45 @@
-﻿@(Html.Kendo().Grid((IEnumerable<OnlineShopKendo.Models.Item>)ViewBag.Items)
+﻿@using OnlineShopKendo.Models
+
+
+
+@(Html.Kendo().Grid<ItemView>()
       .Name("grid")
       .Columns(columns =>
       {
-          //Create a column bound to the ProductID property.
-          columns.Bound(product => product.Id);
-          //Create a column bound to the ProductName property.
-          columns.Bound(product => product.Descriptions.First().Text);
-          columns.Bound(product => product.Descriptions.Last().Text);
-          columns.Bound(product => product.Cost);
-          columns.Template(@<text>
-                            </text>)
-              .ClientTemplate("  <img src='/Item/GetImage/#: Id #' style='width: 100px; '>");
+          columns.Bound(p => p.Id);
+          columns.Bound(p => p.Cost).Width(120);
+          columns.Bound(p => p.TextEn).Width(120);
+          columns.Bound(p => p.TextRu).Width(120);
+          columns.Bound(p => p.Image).ClientTemplate("  <img src='/Item/GetImage/#: Id #' style='width: 100px; '>").Width(180);
+          columns.Command(command => { command.Edit(); command.Destroy(); }).Width(250);
       })
-      .Pageable() //Enable the paging.
-      .Sortable() //Enable the sorting.
+      .Editable(editable => editable.Mode(GridEditMode.InLine))
+      .Pageable()
+      .Sortable()
+      .Scrollable()
+      .HtmlAttributes(new { style = "height:550px;" })
+      .DataSource(dataSource => dataSource
+          .Ajax()
+          .PageSize(20)
+          .Events(events => events.Error("error_handler"))
+          .Model(model => model.Id(p => p.Id))
+          .Read(read => read.Action("Item_Read", "Item"))
+          .Update(update => update.Action("Item_Update", "Item"))
+          .Destroy(update => update.Action("Item_Destroy", "Item"))
       )
+)
+<script type="text/javascript">
+    function error_handler(e) {
+        if (e.errors) {
+            var message = "Errors:\n";
+            $.each(e.errors, function (key, value) {
+                if ('errors' in value) {
+                    $.each(value.errors, function() {
+                        message += this + "\n";
+                    });
+                }
+            });
+            alert(message);
+        }
+    }
+</script>

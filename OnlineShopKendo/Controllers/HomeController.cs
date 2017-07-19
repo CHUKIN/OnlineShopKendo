@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
@@ -23,6 +24,17 @@ namespace OnlineShopKendo.Controllers
         ApplicationContext db = new ApplicationContext();
         public ActionResult Index()
         {
+            HttpCookie cookie = Request.Cookies["lang"];
+            if (cookie == null)
+            {
+                cookie = new HttpCookie("lang")
+                {
+                    HttpOnly = false,
+                    Value = "ru",
+                    Expires = DateTime.Now.AddYears(1)
+                };
+                Response.Cookies.Add(cookie);
+            }
             return View(db.Items.ToList());
         }
 
@@ -36,10 +48,9 @@ namespace OnlineShopKendo.Controllers
             for (int i = 0; i < idArray.Length; i++)
             {
                 var item = db.Items.Find(idArray[i]);
-                int count = 0;
                 var orderItem = new OrderItem { Item=item,Order=order, Count=countArray[i]};
                 db.OrderItems.Add(orderItem);
-                cost += item.Cost;
+                cost += item.Cost*countArray[i];
             }
 
             order.Cost = cost;
@@ -53,6 +64,8 @@ namespace OnlineShopKendo.Controllers
         {
             return View(db.Orders.ToList());
         }
+
+
 
         public ActionResult ChangeCulture(string lang)
         {
@@ -79,16 +92,5 @@ namespace OnlineShopKendo.Controllers
             return Redirect(returnUrl);
         }
 
-
-        public ActionResult lol()
-        {
-            HttpCookie cookie = Request.Cookies["lang"];
-                cookie = new HttpCookie("lang");
-                cookie.HttpOnly = false;
-                cookie.Value = "ru";
-                cookie.Expires = DateTime.Now.AddYears(1);
-            Response.Cookies.Add(cookie);
-            return Redirect("/Home/Index");
-        }  
     }
 }

@@ -225,4 +225,7 @@
   <data name="IncorrectLoginOrPassword" xml:space="preserve">
     <value>Incorrect Login Or Password</value>
   </data>
+  <data name="RegUsername" xml:space="preserve">
+    <value>1</value>
+  </data>
 </root>

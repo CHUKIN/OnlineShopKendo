@@ -1,24 +1,26 @@
 ﻿@model OnlineShopKendo.Models.LoginModel
 
+<div class="container">
+    <h2>@Resources.Resource.Authorization</h2>
 
-<h2>@Resources.Resource.Authorization</h2>
 
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-
-    <div>
-        @Html.ValidationSummary()
-        <input type="hidden" name="returnUrl" value="@ViewBag.returnUrl" />
-        <p>
-            <label>@Resources.Resource.Login</label><br />
-            @Html.EditorFor(x => x.Login)
-        </p>
-        <p>
-            <label>@Resources.Resource.Password</label><br />
-            @Html.EditorFor(x => x.Password)
-        </p>
-        <p><button type="submit">@Resources.Resource.Authorization</button></p>
-    </div>
-}
+        <div>
+            @Html.ValidationSummary()
+            <input type="hidden" name="returnUrl" value="@ViewBag.returnUrl"/>
+            <p>
+                <label>@Resources.Resource.Login</label><br/>
+                @Html.EditorFor(x => x.Login)
+            </p>
+            <p>
+                <label>@Resources.Resource.Password</label><br/>
+                @Html.EditorFor(x => x.Password)
+            </p>
+            <p><button type="submit">@Resources.Resource.Authorization</button>
+            </p>
+        </div>
+    }
+</div>
