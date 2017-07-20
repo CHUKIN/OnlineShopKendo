@@ -3,6 +3,21 @@
 
 <script src="~/Scripts/Home.js"></script>
 <link href="~/Content/Home.css" rel="stylesheet">
+<style>
+    body {margin:25px;}
+
+    div.polaroid {
+        width: 80%;
+        background-color: white;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        margin-bottom: 25px;
+    }
+
+    div.container {
+        text-align: center;
+        padding: 10px 20px;
+    }
+</style>
 
 <div class="container-fluid">
     <div class="row">     
@@ -54,9 +69,10 @@
                         if (Model.Any())
                         {
                             <div class="container">
+                                <h2>@Resources.Resource.HelpAdd</h2>
                                 <div id="myCarousel" class="carousel slide" data-ride="carousel">
                                     <div class="carousel-inner">
-                                        <h2>@Resources.Resource.HelpAdd</h2>
+
                                         <div class="item active" onclick="choose(@Model.OrderBy(i => i.Id).First().Id, '@Model.OrderBy(i => i.Id).First().Descriptions.First(i => i.Language.Code == Request.Cookies["lang"].Value).Text', @Model.OrderBy(i => i.Id).First().Cost)">
                                             <div class="carousel-caption">
                                                 <div class="panel panel-default">
@@ -66,7 +82,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <img src="@Url.Action("GetImage", "Item", new {Model.OrderBy(i => i.Id).First().Id})" style="width: 800px;">
+                                            <img src="@Url.Action("GetImage", "Item", new {Model.OrderBy(i => i.Id).First().Id})" style="height: 500px; width: 500px">
                                         </div>
                                         @{
                                             foreach (var item in Model.OrderBy(i => i.Id).Skip(1))
@@ -80,7 +96,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <img src="@Url.Action("GetImage", "Item", new {item.Id})"style="max-width: 100%; height: auto;" >
+                                                    <img src="@Url.Action("GetImage", "Item", new {item.Id})"style="height: 500px; width: 500px">
                                                 </div>
                                             }
                                         }
@@ -106,3 +122,4 @@
         </div>
     </div>
 </div>
+
