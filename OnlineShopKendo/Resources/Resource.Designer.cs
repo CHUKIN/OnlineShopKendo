@@ -97,11 +97,11 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Подтвердите пароль.
+        ///   Looks up a localized string similar to Выбор языка.
         /// </summary>
-        public static string ConfirmPassword {
+        public static string ChooseLanguage {
             get {
-                return ResourceManager.GetString("ConfirmPassword", resourceCulture);
+                return ResourceManager.GetString("ChooseLanguage", resourceCulture);
             }
         }
         
@@ -129,6 +129,15 @@ namespace Resources {
         public static string CurrentCost {
             get {
                 return ResourceManager.GetString("CurrentCost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Очистить корзину.
+        /// </summary>
+        public static string EmptyTrash {
+            get {
+                return ResourceManager.GetString("EmptyTrash", resourceCulture);
             }
         }
         
@@ -205,11 +214,29 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Логин.
+        ///   Looks up a localized string similar to Количество.
         /// </summary>
-        public static string Login {
+        public static string ItemCount {
             get {
-                return ResourceManager.GetString("Login", resourceCulture);
+                return ResourceManager.GetString("ItemCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Id.
+        /// </summary>
+        public static string ItemId {
+            get {
+                return ResourceManager.GetString("ItemId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Описание.
+        /// </summary>
+        public static string ItemName {
+            get {
+                return ResourceManager.GetString("ItemName", resourceCulture);
             }
         }
         
@@ -268,6 +295,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Заказ.
+        /// </summary>
+        public static string Order {
+            get {
+                return ResourceManager.GetString("Order", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Заказано.
         /// </summary>
         public static string Ordered {
@@ -282,15 +318,6 @@ namespace Resources {
         public static string OrderNumber {
             get {
                 return ResourceManager.GetString("OrderNumber", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Пароль.
-        /// </summary>
-        public static string Password {
-            get {
-                return ResourceManager.GetString("Password", resourceCulture);
             }
         }
         

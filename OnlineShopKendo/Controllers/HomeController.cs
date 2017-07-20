@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
@@ -18,7 +19,7 @@ using OnlineShopKendo.Models;
 
 namespace OnlineShopKendo.Controllers
 {
-    [Culture]
+   // [Culture]
     public class HomeController : Controller
     {
         ApplicationContext db = new ApplicationContext();
@@ -55,7 +56,20 @@ namespace OnlineShopKendo.Controllers
 
             order.Cost = cost;
             db.SaveChanges();
-            
+
+            string language = Request.Cookies["lang"].Value;
+            //string to = "id61899437-02ac7a125@vkmessenger.com";
+            string to = db.Users.ToList().First(i => i.Id == User.Identity.GetUserId()).Email;
+            string subject = Resources.Resource.OrderNumber+": "+order.OrderId;
+            string message = Resources.Resource.OrderNumber + ": " + order.OrderId+"\n";
+            foreach (var itemOrder in order.OrderItems.ToList())
+            {
+                var itemDescription = itemOrder.Item.Descriptions.First(i => i.Language.Code == language);
+                message +=Resources.Resource.ItemId+": "+itemOrder.ItemId+" "+Resources.Resource.ItemName+": "+itemDescription.Text + " "+Resources.Resource.ItemCount+": "+itemOrder.Count+"\n";
+            }
+            message += Resources.Resource.TotalCost + ": " + order.Cost;
+            Send(to,subject,message);
+
             string result = "Успешно";
             return Content(idArray.Length.ToString());
         }
@@ -91,6 +105,32 @@ namespace OnlineShopKendo.Controllers
             Response.Cookies.Add(cookie);
             return Redirect(returnUrl);
         }
+
+
+        public async Task Send(string to, string subject, string message)
+        {
+            WebRequest request = WebRequest.Create("http://smtpproxy.azurewebsites.net/api/send");
+            request.Method = "POST"; // для отправки используется метод Post
+            // данные для отправки
+            string data = $"to={to}&subject={subject}&message={message}";
+            // преобразуем данные в массив байтов
+            byte[] byteArray = System.Text.Encoding.UTF8.GetBytes(data);
+            // устанавливаем тип содержимого - параметр ContentType
+            request.ContentType = "application/x-www-form-urlencoded";
+            // Устанавливаем заголовок Content-Length запроса - свойство ContentLength
+            request.ContentLength = byteArray.Length;
+
+            //записываем данные в поток запроса
+            using (Stream dataStream = request.GetRequestStream())
+            {
+                dataStream.Write(byteArray, 0, byteArray.Length);
+            }
+
+            await request.GetResponseAsync();
+        }
+
+
+
 
     }
 }

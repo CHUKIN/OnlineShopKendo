@@ -10,7 +10,7 @@ using OnlineShopKendo.Models;
 
 namespace OnlineShopKendo.Controllers
 {
-    [Culture]
+    //[Culture]
    
     public class ItemController : Controller
     {
@@ -65,7 +65,7 @@ namespace OnlineShopKendo.Controllers
             ICollection<ItemView> items = new List<ItemView>();
             foreach (var item in db.Items.ToList())
             {
-                items.Add(new ItemView {Id = item.Id, Cost = item.Cost,TextRu = item.Descriptions.First(i=>i.Language.Code=="ru").Text, TextEn = item.Descriptions.First(i => i.Language.Code == "en").Text, Image = item.Image, ImageMimeType = item.ImageMimeType});
+                items.Add(new ItemView {Id = item.Id, Cost = item.Cost,TextRu = item.Descriptions.First(i=>i.Language.Code=="ru").Text, TextEn = item.Descriptions.First(i => i.Language.Code == "en").Text});
             }
             return Json(items.ToDataSourceResult(request));
         }
@@ -76,7 +76,7 @@ namespace OnlineShopKendo.Controllers
         {
             if (itemView != null && ModelState.IsValid)
             {
-                var result = db.Items.First(i => i.Id == itemView.Id);
+                var result = db.Items.ToList().First(i => i.Id == itemView.Id);
                 result.Cost = itemView.Cost;
                 result.Descriptions.ToList().First(i => i.Language.Code == "ru").Text = itemView.TextRu;
                 result.Descriptions.ToList().First(i => i.Language.Code == "en").Text = itemView.TextEn;

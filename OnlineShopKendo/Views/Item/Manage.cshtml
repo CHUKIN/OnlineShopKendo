@@ -1,7 +1,5 @@
 ﻿@using OnlineShopKendo.Models
 
-
-
 @(Html.Kendo().Grid<ItemView>()
       .Name("grid")
       .Columns(columns =>
@@ -10,7 +8,9 @@
           columns.Bound(p => p.Cost).Width(120);
           columns.Bound(p => p.TextEn).Width(120);
           columns.Bound(p => p.TextRu).Width(120);
-          columns.Bound(p => p.Image).ClientTemplate("  <img src='/Item/GetImage/#: Id #' style='width: 100px; '>").Width(180);
+          columns.Template(@<text>
+        </text>)
+                                  .ClientTemplate("  <img src='/Item/GetImage/#: Id #' style='width: 100px; '>");
           columns.Command(command => { command.Edit(); command.Destroy(); }).Width(250);
       })
       .Editable(editable => editable.Mode(GridEditMode.InLine))

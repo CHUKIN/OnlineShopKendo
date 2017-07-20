@@ -15,7 +15,7 @@ using OnlineShopKendo.Filters;
 namespace OnlineShopKendo.Controllers
 {
 
-    [Culture]
+    //[Culture]
     public class AccountController : Controller
         {
         ApplicationContext db = new ApplicationContext();
@@ -37,7 +37,7 @@ namespace OnlineShopKendo.Controllers
         {
             if (ModelState.IsValid)
             {
-                ApplicationUser user = new ApplicationUser { UserName = model.Login, Email = model.Login};
+                ApplicationUser user = new ApplicationUser { UserName = model.Login, Email = model.Email};
                 IdentityResult result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

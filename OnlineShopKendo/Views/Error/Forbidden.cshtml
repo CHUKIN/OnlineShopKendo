@@ -5,25 +5,4 @@
 
 <h2>@Resources.Resource.ForbiddenMessage</h2>
 
-
 @Html.ActionLink(Resources.Resource.Authorization, "Login", "Account", new { returnUrl = Request.Url.ToString().Split(';')[1] }, null)
-
-@*@using (Html.BeginForm("login","Account"))
-    {
-        @Html.AntiForgeryToken()
-
-        <div>
-            @Html.ValidationSummary()
-            <script>console.log("")</script>
-            <input type="hidden" name="returnUrl" value="@Request.Url.ToString().Split(';')[1]" />
-            <p>
-                <label>Логин</label><br />
-                @Html.EditorFor(x => x.Login)
-            </p>
-            <p>
-                <label>Пароль</label><br />
-                @Html.EditorFor(x => x.Password)
-            </p>
-            <p><button type="submit">Войти</button></p>
-        </div>
-    }*@

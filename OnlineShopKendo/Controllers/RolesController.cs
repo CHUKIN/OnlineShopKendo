@@ -11,7 +11,7 @@ using OnlineShopKendo.Models;
 
 namespace OnlineShopKendo.Controllers
 {
-    [Culture]
+    //[Culture]
     public class RolesController : Controller
     {
         private ApplicationRoleManager RoleManager

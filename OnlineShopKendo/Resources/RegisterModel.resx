@@ -117,124 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Add" xml:space="preserve">
-    <value>Добавить</value>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Подтвердите пароль</value>
   </data>
-  <data name="AddItem" xml:space="preserve">
-    <value>Добавление предмета</value>
+  <data name="Email" xml:space="preserve">
+    <value>Почтовый адрес</value>
   </data>
-  <data name="Authorization" xml:space="preserve">
-    <value>Авторизация</value>
+  <data name="EmailValid" xml:space="preserve">
+    <value>Пожалуйста, введите корректный email</value>
   </data>
-  <data name="ChooseLang" xml:space="preserve">
-    <value>Выберите страну</value>
+  <data name="Login" xml:space="preserve">
+    <value>Логин</value>
   </data>
-  <data name="Cost" xml:space="preserve">
-    <value>Цена</value>
-  </data>
-  <data name="CurrentCost" xml:space="preserve">
-    <value>Текущая стоимость</value>
-  </data>
-  <data name="Forbidden" xml:space="preserve">
-    <value>Ошибка 403</value>
-  </data>
-  <data name="ForbiddenMessage" xml:space="preserve">
-    <value>Ошибка 403. Нет прав. Авторизуйтесь с нужными правами</value>
-  </data>
-  <data name="Hello" xml:space="preserve">
-    <value>Привет</value>
-  </data>
-  <data name="HelpAdd" xml:space="preserve">
-    <value>Нажмите, чтобы добавить</value>
-  </data>
-  <data name="HelpAddAuthorize" xml:space="preserve">
-    <value>Авторизуйтесь, чтобы сделать заказ</value>
-  </data>
-  <data name="Image" xml:space="preserve">
-    <value>Изображение</value>
-  </data>
-  <data name="Item" xml:space="preserve">
-    <value>Товара</value>
-  </data>
-  <data name="LogOut" xml:space="preserve">
-    <value>Выйти</value>
-  </data>
-  <data name="Main" xml:space="preserve">
-    <value>Главная</value>
-  </data>
-  <data name="NoProduct" xml:space="preserve">
-    <value>Отсутствуют товары</value>
-  </data>
-  <data name="NotFound" xml:space="preserve">
-    <value>Ошибка 404</value>
-  </data>
-  <data name="NotFoundMessage" xml:space="preserve">
-    <value>Ошибка 404. Ресурс не найден</value>
-  </data>
-  <data name="Ordered" xml:space="preserve">
-    <value>Заказано</value>
-  </data>
-  <data name="OrderNumber" xml:space="preserve">
-    <value>Заказ номер</value>
-  </data>
-  <data name="PersonalArea" xml:space="preserve">
-    <value>Личный кабинет</value>
-  </data>
-  <data name="Registered" xml:space="preserve">
-    <value>Зарегестрироваться</value>
-  </data>
-  <data name="Registration" xml:space="preserve">
-    <value>Регистрация</value>
-  </data>
-  <data name="RegistrationUser" xml:space="preserve">
-    <value>Регистрация пользователя</value>
-  </data>
-  <data name="SuccessAddItem" xml:space="preserve">
-    <value>Успешно добавлено</value>
-  </data>
-  <data name="Text" xml:space="preserve">
-    <value>Описание</value>
-  </data>
-  <data name="ToOrder" xml:space="preserve">
-    <value>Заказать</value>
-  </data>
-  <data name="TotalCost" xml:space="preserve">
-    <value>Общая стоимость</value>
-  </data>
-  <data name="YourOrder" xml:space="preserve">
-    <value>Ваши заказы</value>
-  </data>
-  <data name="YourShopingCart" xml:space="preserve">
-    <value>Ваша корзина</value>
-  </data>
-  <data name="Count" xml:space="preserve">
-    <value>Количество</value>
-  </data>
-  <data name="IncorrectLoginOrPassword" xml:space="preserve">
-    <value>Неверный логин или пароль</value>
-  </data>
-  <data name="NameRequired" xml:space="preserve">
-    <value>Введите Логин</value>
-  </data>
-  <data name="RegUsername" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="ChooseLanguage" xml:space="preserve">
-    <value>Выбор языка</value>
-  </data>
-  <data name="EmptyTrash" xml:space="preserve">
-    <value>Очистить корзину</value>
-  </data>
-  <data name="ItemCount" xml:space="preserve">
-    <value>Количество</value>
-  </data>
-  <data name="ItemId" xml:space="preserve">
-    <value>Id</value>
-  </data>
-  <data name="ItemName" xml:space="preserve">
-    <value>Описание</value>
-  </data>
-  <data name="Order" xml:space="preserve">
-    <value>Заказ</value>
+  <data name="Password" xml:space="preserve">
+    <value>Пароль</value>
   </data>
 </root>

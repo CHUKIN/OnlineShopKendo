@@ -7,7 +7,7 @@ using OnlineShopKendo.Filters;
 
 namespace OnlineShopKendo.Controllers
 {
-    [Culture]
+    //[Culture]
     public class ErrorController : Controller
     {
         public ActionResult NotFound()

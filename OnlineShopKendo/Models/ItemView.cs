@@ -12,9 +12,9 @@ namespace OnlineShopKendo.Models
 
         public int Cost { get; set; }
 
-        public byte[] Image { get; set; }
+        //public byte[] Image { get; set; }
 
-        public string ImageMimeType { get; set; }
+        //public string ImageMimeType { get; set; }
 
         public string TextRu { get; set; }
         public string TextEn { get; set; }

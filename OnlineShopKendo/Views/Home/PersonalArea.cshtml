@@ -6,30 +6,20 @@
     ViewBag.Title = Resources.Resource.PersonalArea;
 }
 
-
 <div class="container">
     <h2>@Resources.Resource.PersonalArea</h2>
-
-
-
-
-
     <h2>@Resources.Resource.YourOrder</h2>
-
     @{
         List<Item> items = new List<Item>();
         string userId = User.Identity.GetUserId();
         var orders = Model.Where(i => i.User.Id==User.Identity.GetUserId());
-
         foreach (var order in orders)
         {
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <p>@Resources.Resource.OrderNumber @order.OrderId. @Resources.Resource.TotalCost: @order.Cost </p>
-                
+                    <p>@Resources.Resource.OrderNumber @order.OrderId. @Resources.Resource.TotalCost: @order.Cost </p>          
                     @foreach (var orderItem in order.OrderItems)
                     {
-
                         <div class="panel panel-default">
                             <div class="panel-body">
                                 <p>Id @Resources.Resource.Item @orderItem.ItemId</p>
@@ -39,7 +29,6 @@
                                 <img src="@Url.Action("GetImage", "Item", new {orderItem.Item.Id})" style="width: 100px;">
                             </div>
                         </div>       
-
                     }
                 </div>
             </div>

@@ -11,12 +11,14 @@ namespace OnlineShopKendo.Models
     public class LoginModel
     {
         //[Required(ErrorMessageResourceName = "NameRequired", ErrorMessageResourceType = typeof(Resources.Resource))]
-        //[DisplayName("login")]
-        [Required(ErrorMessageResourceName = "NameRequired", ErrorMessageResourceType = typeof(Resources.Resource))]
-        [LocalizedDisplayName("RegUsername", NameResourceType = typeof(Resources.Resource))]
-        public string Login { get; set; }
         [Required]
-        //[DataType(DataType.Password)]
+        [Display(Name = "Login", ResourceType = typeof(Resources.LoginModel))]
+        public string Login { get; set; }
+
+
+
+        [Required]
+        [Display(Name = "Password", ResourceType = typeof(Resources.LoginModel))]
         public string Password { get; set; }
     }
 }

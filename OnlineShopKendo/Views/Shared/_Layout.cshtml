@@ -22,7 +22,8 @@
 	<script src="https://kendo.cdn.telerik.com/2017.2.621/js/jquery.min.js"></script>
 	<script src="https://kendo.cdn.telerik.com/2017.2.621/js/jszip.min.js"></script>
 	<script src="https://kendo.cdn.telerik.com/2017.2.621/js/kendo.all.min.js"></script>
-	<script src="https://kendo.cdn.telerik.com/2017.2.621/js/kendo.aspnetmvc.min.js"></script>
+        <script src="https://kendo.cdn.telerik.com/2017.2.621/js/kendo.aspnetmvc.min.js"></script>
+        <meta name="viewport" content="width=device-width">
 <script type="text/javascript">
     var appInsights=window.appInsights||function(config){
         function r(config){t[config]=function(){var i=arguments;t.queue.push(function(){t[config].apply(t,i)})}}var t={config:config},u=document,e=window,o="script",s=u.createElement(o),i,f;for(s.src=config.url||"//az416426.vo.msecnd.net/scripts/a/ai.0.js",u.getElementsByTagName(o)[0].parentNode.appendChild(s),t.cookie=u.cookie,t.queue=[],i=["Event","Exception","Metric","PageView","Trace","Ajax"];i.length;)r("track"+i.pop());return r("setAuthenticatedUserContext"),r("clearAuthenticatedUserContext"),config.disableExceptionTracking||(i="onerror",r("_"+i),f=e[i],e[i]=function(config,r,u,e,o){var s=f&&f(config,r,u,e,o);return s!==!0&&t["_"+i](config,r,u,e,o),s}),t
@@ -44,14 +45,10 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @*@Html.ActionLink(Resources.Resource.Main, "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     @{
-                        
-
-
                         var db = new ApplicationContext();
                         int permission = 0;
                         if (User.Identity.IsAuthenticated)
@@ -59,60 +56,47 @@
                             var idRole = db.Users.ToList().First(i => i.Id == User.Identity.GetUserId()).Roles.First().RoleId;
                             permission = db.ApplicationRoles.First(i => i.Id == idRole).Permission;
                         }
-
-                        foreach (var menu in db.Menus.Where(i=>i.Permission<=permission).ToList())
+                        foreach (var menu in db.Menus.Where(i => i.Permission <= permission).ToList())
                         {
-                            <li>@Html.ActionLink(menu.MenuLanguages.First(i=> {
-                                                                                  var requestCookie = Request.Cookies["lang"];
-                                                                                  return requestCookie != null && i.Language.Code == requestCookie.Value; }).Text, menu.Action, menu.Controller)</li>
+                            <li>@Html.ActionLink(menu.MenuLanguages.First(i =>
+                                {
+                                    var requestCookie = Request.Cookies["lang"];
+                                    return requestCookie != null && i.Language.Code == requestCookie.Value;
+                                }).Text, menu.Action, menu.Controller)</li>
                         }
                     }
-                    @*<li>@Html.ActionLink(Resources.Resource.Add, "Index", "Item")</li>*@
                 </ul>
-                
                 @Html.Partial("LoginPartial")
             </div>
         </div>
-    </div>
-   
-        
-        <div class="container-fluid">
-            @RenderBody()
+    </div> 
+    <div class="container-fluid">
+        @RenderBody()
         <hr />
-            </div>
+    </div>
+        
+    <footer class="footer">
+        <div class="container">
+            <span class="text-muted">Такой вот я молодец.</span>
+        </div>
+    </footer>
+        
+        
+        
 
+    <script>
+        $(document).ready(function () {
+            $("#responsive-panel").kendoResponsivePanel({
+                breakpoint: 768,
+                autoClose: false,
+                orientation: "top"
+            });
+        });
+        function onclick(e) {
+            $("#responsive-panel").getKendoResponsivePanel().toggle();
+        }
+    </script>
 
-            <script>
-                $(document).ready(function () {
-                    $("#responsive-panel").kendoResponsivePanel({
-                        breakpoint: 768,
-                        autoClose: false,
-                        orientation: "top"
-                    });
-                });
-                function onclick(e) {
-                    $("#responsive-panel").getKendoResponsivePanel().toggle();
-                }
-            </script>
-
-            <div>
-                @Html.ActionLink("English", "ChangeCulture", "Home",
-        new { lang = "en" }, null)
-                @Html.ActionLink("Русский", "ChangeCulture", "Home",
-        new { lang = "ru" }, null)
-            </div>
-
-            <div>
-                @*@using (Html.BeginForm("ChangeCulture", "Home"))
-                {
-                    <select name="lang">
-                        <option disabled selected>@Resources.Resource.ChooseLang</option>
-                        <option value="ru">Русский</option>
-                        <option value="en">English</option>
-                    </select>
-                    <input type="submit" name="submit" value="@Resources.Resource.ChooseLang">
-                }*@
-            </div>
             @Scripts.Render("~/bundles/bootstrap")
             @RenderSection("scripts", required: false)
 </body>

@@ -1,5 +1,8 @@
 ﻿@model OnlineShopKendo.Models.RegisterModel
 
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
 <div class="container">
     <h2>@Resources.Resource.Registration</h2>
 
@@ -13,21 +16,28 @@
             @Html.ValidationSummary(false)
 
             <div>
-                @Resources.Resource.Login
+                @Resources.RegisterModel.Login
                 <div>
                     @Html.EditorFor(model => model.Login)
                 </div>
             </div>
+            
+            <div>
+                @Resources.RegisterModel.Email
+                <div>
+                    @Html.EditorFor(model => model.Email)
+                </div>
+            </div>
 
             <div>
-                @Resources.Resource.Password
+                @Resources.RegisterModel.Password
                 <div>
                     @Html.EditorFor(model => model.Password)
                 </div>
             </div>
 
             <div>
-                @Resources.Resource.ConfirmPassword
+                @Resources.RegisterModel.ConfirmPassword
                 <div>
                     @Html.EditorFor(model => model.PasswordConfirm)
                 </div>
