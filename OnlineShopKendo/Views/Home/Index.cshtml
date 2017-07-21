@@ -1,10 +1,11 @@
 ﻿@using OnlineShopKendo.Models
 @model List<Item>
 
-<script src="~/Scripts/Home.js"></script>
-<link href="~/Content/Home.css" rel="stylesheet">
-<style>
-    body {margin:25px;}
+
+@*<style>
+    body {
+        margin: 25px;
+    }
 
     div.polaroid {
         width: 80%;
@@ -17,109 +18,145 @@
         text-align: center;
         padding: 10px 20px;
     }
-</style>
+</style>*@
+<link href="~/Content/Home.css" rel="stylesheet">
+@*<link href="~/Content/carousel.css" rel="stylesheet">*@
 
-<div class="container-fluid">
-    <div class="row">     
-        <div class="col-lg-4">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <p>@Resources.Resource.YourShopingCart</p> @Resources.Resource.CurrentCost:
-                    <div id="cost" value="0"></div>
-                    @(Html.Kendo().Grid<OnlineShopKendo.Models.Item>() 
-                          .Name("grid")
-                          .Columns(columns =>
-                          {
-                              columns.Bound<int>(product => product.Id);
-                              columns.Bound<string>(product => product.Descriptions.First().Text);
-                              columns.Bound<int>(product => product.Cost);
-                              columns.Template(@<text>
-                                                </text>)
-                                  .ClientTemplate("  <img src='/Item/GetImage/#: Id #' style='width: 100px; '>");
-                              columns.Template(@<text>
-                                                </text>)
-                                  .ClientTemplate(" <input type='number' id='#: Id #' value='1' min='1' onchange='changeNumber(#: Id #,value)'/> ");
-                              columns.Template(@<text>
-                                                </text>)
-                                  .ClientTemplate(" <button onclick='remove(#: Id #)'>X</button> ");
-                          })
-                          .DataSource(dataSource =>
-                          {
-                          })
-                          .Sortable()
-                          )
-                    @{
-                        if (User.Identity.IsAuthenticated)
+<div>
+    @*<div class="col-lg-1"></div>*@
+    <div >
+        @{
+            if (Model.Any())
+            {
+                <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                        @for (int i = 1; i < Model.Count; i++)
                         {
-                            <button onclick="sendOrder('@Resources.Resource.Ordered')">@Resources.Resource.ToOrder</button>
+                            <li data-target="#myCarousel" data-slide-to="@i"></li>
                         }
-                        else
-                        {
-                            <p>@Resources.Resource.HelpAddAuthorize</p>
-                        }
-                        <button onclick="clearGrid()">@Resources.Resource.EmptyTrash</button>
-                    }
-                </div>
-            </div>         
-        </div>
-        <div class="col-lg-8">    
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    @{
-                        if (Model.Any())
-                        {
+              
+                    </ol>
+                    <div class="carousel-inner" role="listbox">
+                
+                        <div class="carousel-item active">
+                            <img class="" src="@Url.Action("GetImage", "Item", new {Model.OrderBy(i=>i.Id).First().Id})" alt="First slide">
                             <div class="container">
-                                <h2>@Resources.Resource.HelpAdd</h2>
-                                <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                                    <div class="carousel-inner">
-
-                                        <div class="item active" onclick="choose(@Model.OrderBy(i => i.Id).First().Id, '@Model.OrderBy(i => i.Id).First().Descriptions.First(i => i.Language.Code == Request.Cookies["lang"].Value).Text', @Model.OrderBy(i => i.Id).First().Cost)">
-                                            <div class="carousel-caption">
-                                                <div class="panel panel-default">
-                                                    <div class="panel-body">
-                                                        <h3 id="item+@Model.OrderBy(i => i.Id).First().Id">@Resources.Resource.Text: @Model.OrderBy(i => i.Id).First().Descriptions.First(i => i.Language.Code == Request.Cookies["lang"].Value).Text</h3>
-                                                        <h4>@Resources.Resource.Cost: @Model.OrderBy(i => i.Id).First().Cost</h4>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <img src="@Url.Action("GetImage", "Item", new {Model.OrderBy(i => i.Id).First().Id})" style="height: 500px; width: 500px">
-                                        </div>
-                                        @{
-                                            foreach (var item in Model.OrderBy(i => i.Id).Skip(1))
-                                            {
-                                                <div class="item" onclick="choose(@item.Id, '@item.Descriptions.First(i => i.Language.Code == Request.Cookies["lang"].Value).Text', @item.Cost)">
-                                                    <div class="carousel-caption">
-                                                        <div class="panel panel-default">
-                                                            <div class="panel-body">
-                                                                <h3 id="item+@item.Id">@Resources.Resource.Text: @item.Descriptions.First(i => i.Language.Code == Request.Cookies["lang"].Value).Text</h3>
-                                                                <h4>@Resources.Resource.Cost: @item.Cost</h4>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <img src="@Url.Action("GetImage", "Item", new {item.Id})"style="height: 500px; width: 500px">
-                                                </div>
-                                            }
-                                        }
-                                    </div>
-                                    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-                                        <span class="glyphicon glyphicon-chevron-left"></span>
-                                        <span class="sr-only">Previous</span>
-                                    </a>
-                                    <a class="right carousel-control" href="#myCarousel" data-slide="next">
-                                        <span class="glyphicon glyphicon-chevron-right"></span>
-                                        <span class="sr-only">Next</span>
-                                    </a>
+                                <div class="carousel-caption d-none d-md-block text-left">
+                                    <h1 >@Resources.Resource.Text</h1>
+                                    <p id="item+@Model.OrderBy(i=>i.Id).First().Id">@Model.OrderBy(i => i.Id).First().Descriptions.First(i => i.Language.Code == Request.Cookies["lang"].Value).Text</p>
+                                    <p>@Resources.Resource.Cost: @Model.OrderBy(i => i.Id).First().Cost</p>
+                                    <p><a class="k-button" onclick="choose(@Model.OrderBy(i => i.Id).First().Id, '@Model.OrderBy(i => i.Id).First().Descriptions.First(i => i.Language.Code == Request.Cookies["lang"].Value).Text', @Model.OrderBy(i => i.Id).First().Cost)" role="button">@Resources.Resource.HelpAdd</a>
+                                    </p>
                                 </div>
                             </div>
-                        }
-                        else
+                        </div>
+
+                        @foreach (var item in Model.OrderBy(i => i.Id).Skip(1))
                         {
-                            <h2>@Resources.Resource.NoProduct</h2>
+                            <div class="carousel-item">
+                                <img class="" src="@Url.Action("GetImage", "Item", new {item.Id})" alt="Second slide" >
+                                <div class="container">
+                                    <div class="carousel-caption d-none d-md-block text-left">
+                                        <h1 >@Resources.Resource.Text</h1>
+                                        <p id="item+@item.Id">@item.Descriptions.First(i => i.Language.Code == Request.Cookies["lang"].Value).Text</p>
+                                        <p>@Resources.Resource.Cost: @item.Cost</p>
+                                        <p><a class="k-button" onclick="choose(@item.Id, '@item.Descriptions.First(i => i.Language.Code == Request.Cookies["lang"].Value).Text', @item.Cost)" role="button">@Resources.Resource.HelpAdd</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                    
                         }
-                    }
+
+               
+                
+                    </div>
+                    <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
                 </div>
-            </div>      
-        </div>
+
+            }
+            else
+            {
+                <h2>@Resources.Resource.NoProduct</h2>
+            }
+        }
+
     </div>
 </div>
+
+
+
+<style>
+    .demo-section {
+        text-align: center;
+        line-height: 3em;
+    }
+    .demo-section .k-button {
+        width: 250px;
+    }
+</style>
+
+<div class="row">
+    <div class="col-lg-8">
+        @(Html.Kendo().Grid<OnlineShopKendo.Models.Item>() 
+              .Name("grid")
+              .Columns(columns =>
+              {
+                  columns.Bound<int>(product => product.Id);
+                  columns.Bound<string>(product => product.Descriptions.First().Text);
+                  columns.Bound<int>(product => product.Cost);
+                  columns.Template(@<text>
+                                    </text>)
+                      .ClientTemplate("  <img src='/Item/GetImage/#: Id #' style='width: 100px; '>");
+                  columns.Template(@<text>
+                                    </text>)
+                      .ClientTemplate(" <input type='number' id='#: Id #' value='1' min='1' onchange='changeNumber(#: Id #,value)'/> ");
+                  columns.Template(@<text>
+                                    </text>)
+                      .ClientTemplate(" <button onclick='remove(#: Id #)'>X</button> ");
+              })
+              .DataSource(dataSource =>
+              {
+              })
+              .Sortable()
+              )
+    </div>
+     <div class="col-lg-4">
+        <div class="demo-section k-content" >
+            <h4>@Resources.Resource.YourShopingCart</h4>
+            @{
+
+                if (User.Identity.IsAuthenticated)
+                {
+                    <button class="k-button" onclick="sendOrder('@Resources.Resource.Ordered')">@Resources.Resource.ToOrder</button>
+                    <br/>
+                }
+                else
+                {
+                    <p>@Resources.Resource.HelpAddAuthorize</p>
+                }
+            }
+            <label></label>
+            <p id="cost" value="0">@Resources.Resource.CurrentCost: </p>
+            <div >
+        
+                <button  class="k-button" onclick="clearGrid('@Resources.Resource.Ordered')">@Resources.Resource.EmptyTrash</button>
+            </div>
+        </div>       
+    </div>
+</div>
+
+
+
+
+
+<script src="~/Scripts/Homee.js"></script>
 

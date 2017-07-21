@@ -1,12 +1,14 @@
 ﻿
 
-    window.onload = function() {
-        updateGrid();
-    };
+
+window.onload = function () {
+    // updateGrid();
+    counting();
+};
 
 function changeNumber(id, value) {
     var item = JSON.parse(localStorage.getItem(id));
-    localStorage.setItem(id,JSON.stringify({Id:id,Text:item.Text,Cost:item.Cost,Count:Number.parseInt(value)}));
+    localStorage.setItem(id, JSON.stringify({ Id: id, Text: item.Text, Cost: item.Cost, Count: Number.parseInt(value) }));
     counting();
 }
 
@@ -16,13 +18,13 @@ function updateGrid() {
     for (var i = 0; i < localStorage.length; i++) {
         var key = localStorage.key(i);
         var itemText = document.getElementById(`item+${key}`);
-        var text = itemText.innerText.split(':')[1].trim();
+        var text = itemText.innerText;
 
         var item = JSON.parse(localStorage.getItem(key));
         if (item.Text !== text) {
             item.Text = text;
             item = JSON.stringify(item);
-            localStorage.setItem(key,item);
+            localStorage.setItem(key, item);
         }
     }
 
@@ -46,15 +48,18 @@ function updateGrid() {
 }
 
 
-function counting() {
+function counting(message) {
 
     var totalCost = 0;
     for (var i = 0; i < localStorage.length; i++) {
-        var id = localStorage.key(i);    
+        var id = localStorage.key(i);
         var element = JSON.parse(localStorage.getItem(id));
         totalCost += element.Cost * element.Count;
     }
-    document.getElementById('cost').innerHTML = totalCost;
+    var text = document.getElementById('cost').innerText;
+    text = text.split(":");
+    text = text[0] + ":";
+    document.getElementById('cost').innerHTML =text+" "+ totalCost;
     updateGrid();
 }
 
@@ -72,14 +77,14 @@ function choose(id, text, cost) {
         localStorage.setItem(id, JSON.stringify({ Id: id, Text: text, Cost: cost, Count: 1 }));
     } else {
         item = JSON.parse(item);
-        localStorage.setItem(id, JSON.stringify({ Id: id, Text: text, Cost: cost, Count: item.Count+1 }));
+        localStorage.setItem(id, JSON.stringify({ Id: id, Text: text, Cost: cost, Count: item.Count + 1 }));
     }
     counting();
 }
 
 function clearGrid() {
     var length = localStorage.length;
-    for (var i = 0; i <length; i++) {
+    for (var i = 0; i < length; i++) {
         remove(localStorage.key(0));
     }
     counting();
@@ -104,7 +109,7 @@ function sendOrder(message) {
         idArray.push(raw[i].Id);
         countArray.push(document.getElementById(raw[i].Id).value);
     }
-    $.post('/Home/Order', { idArray, countArray},
+    $.post('/Home/Order', { idArray, countArray },
         function (data) {
             console.log(data);
             alert(message);

@@ -1,6 +1,8 @@
 ﻿/* #region Common styles */
 html,
-body,
+body {
+    background-color: #999999
+}
 .body-content {
     height: 100%;
     box-sizing: border-box;

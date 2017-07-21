@@ -9,13 +9,13 @@
     @using (Html.BeginForm("Index", "Item", FormMethod.Post, new {enctype = "multipart/form-data"}))
     {
         <label>@Resources.Resource.Text: (ru)</label>
-        <input required class="form-control" type="text" name="textRu"/>
+        <input required class="k-textbox" type="text" name="textRu" />
         <br/>
         <label>@Resources.Resource.Text: (en)</label>
-        <input required class="form-control" type="text" name="textEn" />
+        <input required class="k-textbox" type="text" name="textEn" />
         <br />
         <label>@Resources.Resource.Cost: </label>
-        <input required class="form-control" type="number" name="cost" />
+        <input required class="k-textbox" type="number" name="cost" />
         <br/>
         <label>@Resources.Resource.Image: </label>
         @(Html.Kendo().Upload()
