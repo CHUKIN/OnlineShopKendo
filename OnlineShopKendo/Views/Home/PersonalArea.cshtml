@@ -11,18 +11,54 @@
     @{
         List<Item> items = new List<Item>();
         var orders = Model.Where(i => i.User.Id==User.Identity.GetUserId());
+
         foreach (var order in orders)
         {
-                 <ul class="list-group">      
-                     <li class="list-group-item list-group-item-info">@Resources.Resource.OrderNumber @order.OrderId. @Resources.Resource.TotalCost: @order.Cost</li>  
+                 <ul class="list-group ">      
+                     <li class="list-group-item ">@Resources.Resource.OrderNumber @order.OrderId. @Resources.Resource.TotalCost: @order.Cost</li>  
                      @foreach (var orderItem in order.OrderItems)
                     {
-                        <li class="list-group-item">
-                            <p>Id @Resources.Resource.Item : @orderItem.ItemId </p>
-                            <p> @Resources.Resource.Text @Resources.Resource.Item : @orderItem.Item.Descriptions.First(i => i.Language.Code == Request.Cookies["lang"].Value).Text </p>
-                            <p> @Resources.Resource.Cost @Resources.Resource.Item : @orderItem.Item.Cost </p>
-                            <p> @Resources.Resource.Count @Resources.Resource.Item : @orderItem.Count </p>
-                            <img src="@Url.Action("GetImage", "Item", new {orderItem.Item.Id})" style="width: 100px;">                          
+                        <li class="list-group-item ">
+                            <div class="row ">
+
+                                <div class="col-lg-2">
+                                    <div class="panel panel-default">
+                                        <div class="panel-body " >
+                                            <p>Id @Resources.Resource.Item : @orderItem.ItemId</p>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="panel panel-default">
+                                        <div class="panel-body">
+                                            <p>@Resources.Resource.Text @Resources.Resource.Item : @orderItem.Item.Descriptions.First(i => i.Language.Code == Request.Cookies["lang"].Value).Text</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="panel panel-default">
+                                        <div class="panel-body">
+                                            <p>@Resources.Resource.Cost @Resources.Resource.Item : @orderItem.Item.Cost</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="panel panel-default">
+                                        <div class="panel-body">
+                                            <p>@Resources.Resource.Count @Resources.Resource.Item : @orderItem.Count</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <img src="@Url.Action("GetImage", "Item", new {orderItem.Item.Id})" style="width: 100px;">
+                                </div>
+
+                            </div>
+                           
+                           
+
+
                         </li>                            
                     }
                  </ul>
