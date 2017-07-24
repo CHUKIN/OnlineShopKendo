@@ -124,6 +124,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Создано Атаманчуком Дмитрием.
+        /// </summary>
+        public static string Creator {
+            get {
+                return ResourceManager.GetString("Creator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Текущая стоимость.
         /// </summary>
         public static string CurrentCost {
@@ -223,7 +232,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Id.
+        ///   Looks up a localized string similar to Номер.
         /// </summary>
         public static string ItemId {
             get {
@@ -255,6 +264,15 @@ namespace Resources {
         public static string Main {
             get {
                 return ResourceManager.GetString("Main", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Редактирование товаров.
+        /// </summary>
+        public static string ManageItems {
+            get {
+                return ResourceManager.GetString("ManageItems", resourceCulture);
             }
         }
         
@@ -291,6 +309,15 @@ namespace Resources {
         public static string NotFoundMessage {
             get {
                 return ResourceManager.GetString("NotFoundMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Опции.
+        /// </summary>
+        public static string Options {
+            get {
+                return ResourceManager.GetString("Options", resourceCulture);
             }
         }
         
@@ -381,6 +408,24 @@ namespace Resources {
         public static string Text {
             get {
                 return ResourceManager.GetString("Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Английский текст.
+        /// </summary>
+        public static string TextEn {
+            get {
+                return ResourceManager.GetString("TextEn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Русский текст.
+        /// </summary>
+        public static string TextRu {
+            get {
+                return ResourceManager.GetString("TextRu", resourceCulture);
             }
         }
         

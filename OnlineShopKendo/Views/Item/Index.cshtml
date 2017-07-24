@@ -3,28 +3,56 @@
     ViewBag.Title = Resources.Resource.AddItem;
 }
 
+<style>
+    .preview {
+        background-color: darkgrey;
+        border-radius: 10px;
+        width: 50%;
+    }
+</style>
+
+
 <div class="container">
     <h2>@Resources.Resource.AddItem</h2>
     @ViewBag.Message
-    @using (Html.BeginForm("Index", "Item", FormMethod.Post, new {enctype = "multipart/form-data"}))
-    {
-        <label>@Resources.Resource.Text: (ru)</label>
-        <input required class="k-textbox" type="text" name="textRu" />
-        <br/>
-        <label>@Resources.Resource.Text: (en)</label>
-        <input required class="k-textbox" type="text" name="textEn" />
-        <br />
-        <label>@Resources.Resource.Cost: </label>
-        <input required class="k-textbox" type="number" name="cost" />
-        <br/>
-        <label>@Resources.Resource.Image: </label>
-        @(Html.Kendo().Upload()
-              .Name("files")
-              .HtmlAttributes(new { aria_label = "files" })
-              )
-        <br/>
-        <p style="padding-top: 1em; text-align: right">
-            <input type="submit" value="Submit" class="k-button k-primary" />
-        </p>
-    }
+
+    <form action="/Item/Index" method="post" enctype="multipart/form-data" class="preview">
+        <div class="row">
+            <div class="col-lg-4">
+                <label>@Resources.Resource.Text: (ru)</label>
+            </div>
+            <div class="col-lg-8">
+                <input required class="k-textbox" type="text" name="textRu"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4">
+                <label>@Resources.Resource.Text: (en)</label>
+            </div>
+            <div class="col-lg-8">
+                <input required class="k-textbox" type="text" name="textEn"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4">
+                <label>@Resources.Resource.Cost: </label>
+            </div>
+            <div class="col-lg-8">
+                <input required class="k-textbox" type="number" name="cost" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4">
+                <label>@Resources.Resource.Image: </label>
+            </div>
+            <div class="col-lg-8">
+                @(Html.Kendo().Upload()
+                      .Name("files")
+                      .HtmlAttributes(new {aria_label = "files"})
+                      )
+            </div>
+        </div>
+        <input type="submit" value="@Resources.Resource.Add" class="k-button " />
+    </form>
+        
 </div>

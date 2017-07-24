@@ -26,6 +26,12 @@ function updateGrid() {
             item = JSON.stringify(item);
             localStorage.setItem(key, item);
         }
+        if (localStorage.length > 0) {
+            document.getElementById("sendOrderButton").removeAttribute('hidden');
+        } else {
+            alert("q");
+            $("#sendOrderButton").attr("hidden","true");
+        }
     }
 
 

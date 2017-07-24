@@ -229,12 +229,27 @@
     <value>Количество</value>
   </data>
   <data name="ItemId" xml:space="preserve">
-    <value>Id</value>
+    <value>Номер</value>
   </data>
   <data name="ItemName" xml:space="preserve">
     <value>Описание</value>
   </data>
   <data name="Order" xml:space="preserve">
     <value>Заказ</value>
+  </data>
+  <data name="Creator" xml:space="preserve">
+    <value>Создано Атаманчуком Дмитрием</value>
+  </data>
+  <data name="ManageItems" xml:space="preserve">
+    <value>Редактирование товаров</value>
+  </data>
+  <data name="Options" xml:space="preserve">
+    <value>Опции</value>
+  </data>
+  <data name="TextEn" xml:space="preserve">
+    <value>Английский текст</value>
+  </data>
+  <data name="TextRu" xml:space="preserve">
+    <value>Русский текст</value>
   </data>
 </root>

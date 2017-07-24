@@ -237,4 +237,19 @@
   <data name="Order" xml:space="preserve">
     <value>Order</value>
   </data>
+  <data name="Creator" xml:space="preserve">
+    <value>Created by Atamanchuk Dmitriy</value>
+  </data>
+  <data name="ManageItems" xml:space="preserve">
+    <value>Editing of goods</value>
+  </data>
+  <data name="Options" xml:space="preserve">
+    <value>Options</value>
+  </data>
+  <data name="TextEn" xml:space="preserve">
+    <value>English text</value>
+  </data>
+  <data name="TextRu" xml:space="preserve">
+    <value>Russian text</value>
+  </data>
 </root>
