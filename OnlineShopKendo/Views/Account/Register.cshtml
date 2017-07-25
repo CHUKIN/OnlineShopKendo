@@ -3,7 +3,19 @@
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
 
-<div class="container">
+
+<style>
+    .preview {
+        background-color: darkgrey;
+        border-radius: 10px;
+        width: 50%;
+        margin-top: 2rem;
+        width: 30%;
+    }
+</style>
+
+
+<div class="container preview">
     <h2>@Resources.Resource.Registration</h2>
 
     @using (Html.BeginForm())
@@ -15,32 +27,41 @@
             <hr />
             @Html.ValidationSummary(false)
 
-            <div>
-                @Resources.RegisterModel.Login
-                <div>
-                    @Html.EditorFor(model => model.Login)
+            <div class="row">
+                <div class="col-lg-4">
+                    <label>@Resources.RegisterModel.Login</label><br />
+                </div>
+                <div class="col-lg-8">
+                    @Html.EditorFor(x => x.Login)
                 </div>
             </div>
             
-            <div>
-                @Resources.RegisterModel.Email
-                <div>
-                    @Html.EditorFor(model => model.Email)
+            <div class="row">
+                <div class="col-lg-4">
+                    <label>@Resources.RegisterModel.Email</label><br />
+                </div>
+                <div class="col-lg-8">
+                    @Html.EditorFor(x => x.Email)
                 </div>
             </div>
 
-            <div>
-                @Resources.RegisterModel.Password
-                <div>
-                    @Html.EditorFor(model => model.Password)
+            <div class="row">
+                <div class="col-lg-4">
+                    <label>@Resources.RegisterModel.Password</label><br />
+                </div>
+                <div class="col-lg-8">
+                    @Html.EditorFor(x => x.Password)
                 </div>
             </div>
 
-            <div>
-                @Resources.RegisterModel.ConfirmPassword
-                <div>
-                    @Html.EditorFor(model => model.PasswordConfirm)
+            <div class="row">
+                <div class="col-lg-4">
+                    <label>@Resources.RegisterModel.ConfirmPassword</label><br />
                 </div>
+                <div class="col-lg-8">
+                    @Html.EditorFor(x => x.PasswordConfirm)
+                </div>
+            </div>
             </div>
 
             <div>
@@ -48,7 +69,6 @@
                     <input class="k-button" type="submit" value=@Resources.Resource.Registered />
                 </div>
             </div>
-        </div>
     }
 </div>
 

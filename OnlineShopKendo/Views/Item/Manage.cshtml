@@ -29,15 +29,21 @@
                        command.Destroy();
                    }).Width(250).Column.Title = Resources.Resource.Options;
                })
+
                .Editable(editable => editable.Mode(GridEditMode.InLine))
                .Pageable()
                .Sortable()
                .Scrollable()
                .HtmlAttributes(new {style = "height:550px;"})
                .DataSource(dataSource => dataSource
+
                    .Ajax()
                    .PageSize(20)
                    .Events(events => events.Error("error_handler"))
+                   .Model(model =>
+                   {
+                       model.Field(p => p.Id).Editable(false);
+                   })
                    .Model(model => model.Id(p => p.Id))
                    .Read(read => read.Action("Item_Read", "Item"))
                    .Update(update => update.Action("Item_Update", "Item"))

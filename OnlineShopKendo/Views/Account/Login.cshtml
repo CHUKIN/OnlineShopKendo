@@ -3,8 +3,17 @@
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
 
+<style>
+    .preview {
+        background-color: darkgrey;
+        border-radius: 10px;
+        width: 50%;
+        margin-top: 2rem;
+        width: 30%;
+    }
+</style>
 
-<div class="container">
+<div class="container preview">
     <h2>@Resources.Resource.Authorization</h2>
 
 
@@ -15,16 +24,27 @@
         <div>
             @Html.ValidationSummary()
             <input type="hidden" name="returnUrl" value="@ViewBag.returnUrl"/>
-            <p>
-                <label>@Resources.LoginModel.Login</label><br/>
-                @Html.EditorFor(x => x.Login)
-            </p>
-            <p>
-                <label>@Resources.LoginModel.Password</label><br/>
-                @Html.EditorFor(x => x.Password)
-            </p>
+            <div class="row">
+                <div class="col-lg-4">
+                    <label>@Resources.LoginModel.Login</label><br/>
+                </div>
+                <div class="col-lg-8">
+                    @Html.EditorFor(x => x.Login)
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4">
+                    <label>@Resources.LoginModel.Password</label><br/>
+                </div>
+                <div class="col-lg-8">
+                    @Html.EditorFor(x => x.Password)
+                </div>
+            </div>
             <p><button class="k-button" type="submit">@Resources.Resource.Authorization</button>
             </p>
         </div>
     }
 </div>
+
+
+

@@ -110,29 +110,22 @@ namespace OnlineShopKendo.Controllers
         public async Task Send(string to, string subject, string message)
         {
             WebRequest request = WebRequest.Create("http://smtpproxy.azurewebsites.net/api/send");
-            request.Method = "POST"; // для отправки используется метод Post
-            // данные для отправки
+            request.Method = "POST";
+
             string data = $"to={to}&subject={subject}&message={message}";
-            // преобразуем данные в массив байтов
+
             byte[] byteArray = System.Text.Encoding.UTF8.GetBytes(data);
-            // устанавливаем тип содержимого - параметр ContentType
+
             request.ContentType = "application/x-www-form-urlencoded";
-            // Устанавливаем заголовок Content-Length запроса - свойство ContentLength
+
             request.ContentLength = byteArray.Length;
 
-            //записываем данные в поток запроса
             using (Stream dataStream = request.GetRequestStream())
             {
                 dataStream.Write(byteArray, 0, byteArray.Length);
             }
 
             await request.GetResponseAsync();
-        }
-
-
-        public ActionResult Lol()
-        {
-            return Content("qq");
         }
 
 
