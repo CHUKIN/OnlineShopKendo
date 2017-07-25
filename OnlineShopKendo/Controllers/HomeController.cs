@@ -130,9 +130,9 @@ namespace OnlineShopKendo.Controllers
         }
 
 
-        public ActionResult lol()
+        public ActionResult Lol()
         {
-            return View();
+            return Content("qq");
         }
 
 

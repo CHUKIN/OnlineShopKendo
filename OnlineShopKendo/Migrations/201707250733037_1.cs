@@ -8,6 +8,32 @@ namespace OnlineShopKendo.Migrations
         public override void Up()
         {
             CreateTable(
+                "dbo.AspNetRoles",
+                c => new
+                    {
+                        Id = c.String(nullable: false, maxLength: 128),
+                        Name = c.String(nullable: false, maxLength: 256),
+                        Description = c.String(),
+                        Permission = c.Int(),
+                        Discriminator = c.String(nullable: false, maxLength: 128),
+                    })
+                .PrimaryKey(t => t.Id)
+                .Index(t => t.Name, unique: true, name: "RoleNameIndex");
+            
+            CreateTable(
+                "dbo.AspNetUserRoles",
+                c => new
+                    {
+                        UserId = c.String(nullable: false, maxLength: 128),
+                        RoleId = c.String(nullable: false, maxLength: 128),
+                    })
+                .PrimaryKey(t => new { t.UserId, t.RoleId })
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
+                .ForeignKey("dbo.AspNetRoles", t => t.RoleId, cascadeDelete: true)
+                .Index(t => t.UserId)
+                .Index(t => t.RoleId);
+            
+            CreateTable(
                 "dbo.Descriptions",
                 c => new
                     {
@@ -106,19 +132,6 @@ namespace OnlineShopKendo.Migrations
                 .Index(t => t.UserId);
             
             CreateTable(
-                "dbo.AspNetUserRoles",
-                c => new
-                    {
-                        UserId = c.String(nullable: false, maxLength: 128),
-                        RoleId = c.String(nullable: false, maxLength: 128),
-                    })
-                .PrimaryKey(t => new { t.UserId, t.RoleId })
-                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
-                .ForeignKey("dbo.AspNetRoles", t => t.RoleId, cascadeDelete: true)
-                .Index(t => t.UserId)
-                .Index(t => t.RoleId);
-            
-            CreateTable(
                 "dbo.Languages",
                 c => new
                     {
@@ -149,22 +162,11 @@ namespace OnlineShopKendo.Migrations
                     {
                         Id = c.Int(nullable: false, identity: true),
                         Name = c.String(),
+                        Controller = c.String(),
+                        Action = c.String(),
                         Permission = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
-            
-            CreateTable(
-                "dbo.AspNetRoles",
-                c => new
-                    {
-                        Id = c.String(nullable: false, maxLength: 128),
-                        Name = c.String(nullable: false, maxLength: 256),
-                        Description = c.String(),
-                        Permission = c.Int(),
-                        Discriminator = c.String(nullable: false, maxLength: 128),
-                    })
-                .PrimaryKey(t => t.Id)
-                .Index(t => t.Name, unique: true, name: "RoleNameIndex");
             
         }
         
@@ -181,11 +183,8 @@ namespace OnlineShopKendo.Migrations
             DropForeignKey("dbo.OrderItems", "OrderId", "dbo.Orders");
             DropForeignKey("dbo.OrderItems", "ItemId", "dbo.Items");
             DropForeignKey("dbo.Descriptions", "Item_Id", "dbo.Items");
-            DropIndex("dbo.AspNetRoles", "RoleNameIndex");
             DropIndex("dbo.MenuLanguages", new[] { "Menu_Id" });
             DropIndex("dbo.MenuLanguages", new[] { "Language_Id" });
-            DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
-            DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
@@ -194,11 +193,12 @@ namespace OnlineShopKendo.Migrations
             DropIndex("dbo.OrderItems", new[] { "OrderId" });
             DropIndex("dbo.Descriptions", new[] { "Language_Id" });
             DropIndex("dbo.Descriptions", new[] { "Item_Id" });
-            DropTable("dbo.AspNetRoles");
+            DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
+            DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
+            DropIndex("dbo.AspNetRoles", "RoleNameIndex");
             DropTable("dbo.Menus");
             DropTable("dbo.MenuLanguages");
             DropTable("dbo.Languages");
-            DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
@@ -206,6 +206,8 @@ namespace OnlineShopKendo.Migrations
             DropTable("dbo.OrderItems");
             DropTable("dbo.Items");
             DropTable("dbo.Descriptions");
+            DropTable("dbo.AspNetUserRoles");
+            DropTable("dbo.AspNetRoles");
         }
     }
 }

@@ -1,0 +1,419 @@
+
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+ "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>Настройка IIS</title>
+        <link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"> 
+        <link rel="stylesheet" href="http://www.ipi-manager.ru/media/style.css" type="text/css">
+        <link rel="shortcut icon" href="/favicon.ico">
+        <!--[if lt IE 7]>
+        <![if gte IE 5.5]>
+        <script type="text/javascript" src="http://www.ipi-manager.ru/media/script/fixpng.js"></script><style type="text/css"> 
+        .iePNG, IMG { filter:expression(fixPNG(this)); } 
+        .iePNG A { position: relative; }
+        </style>
+        <![endif]>
+        <![endif]-->
+        <link rel="stylesheet" href="../../../../_static/basic.css" type="text/css">
+        <link rel="stylesheet" href="../../../../_static/docs.css" type="text/css">
+        <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css">
+        <meta name="keywords" content="система управления, crm, crm системы, управление предприятием, информационные системы управления, управление задачами, система управления компанией, управление инцидентами, контроль сроков исполнения, service desk, help desk">
+        <meta name="description" content="Система управления предприятием IPI.MANAGER™ PRO - современное решение для Вашего бизнеса. Системы контроля исполнения поручений, контроль работы сотрудников, планировщик задач, встроенные CRM-решения, help desk, service desk и многое другое - система управления задачами IPI.MANAGER™ PRO.">
+    </head>
+<body>
+<div id="main">
+    <div class="header">
+        <table cellpadding="0" cellspacing="0" border="0" width="100%">
+            <tr>
+                <td width="1%"><img src="http://www.ipi-manager.ru/media/_/menu_l.gif" alt="" width="22" height="53" border="0" /></td>
+                <td width="98%" class="menu"> 
+                    <a href="http://www.ipi-manager.ru/ru/description/" class="men">О программе</a>
+                    <a href="http://www.ipi-manager.ru/ru/download/" class="men">Скачать</a>
+                    <a href="http://www.ipi-manager.ru/ru/price/" class="men">Цены</a>
+                    <a href="http://www.ipi-manager.ru/ru/description/clients.phtml" class="men">Клиенты</a>
+                    <a href="http://www.ipi-manager.ru/ru/support/" class="men">Поддержка</a>
+                    <a href="http://www.ipi-manager.ru/ru/partner/" class="men">Партнеры</a>
+                    <a href="http://www.ipi-manager.ru/ru/privacy/contacts.phtml" class="men">Контакты</a>
+                </td>
+                <td width="1%"><a href="http://www.ipi-manager.ru/"><img src="http://www.ipi-manager.ru/media/_/menu_r.gif" alt="Система управления задачами IPI.MANAGER™ PRO" width="306" height="53" border="0" /></a></td>
+            </tr>
+            <tr><td colspan="3"><img src="http://www.ipi-manager.ru/media/_/pix.gif" alt="" width="1" height="10" border="0"></td></tr>
+        </table>
+
+        <table cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+            <td align="right" style="padding-right:15px;"><a href="http://www.ipi-manager.ru/ru/support/index.phtml" class="menu2">Служба поддержки</a>
+            <a href="http://www.ipi-manager.ru/ru/support/faq.phtml" class="menu2">Вопрос-ответ</a>
+            <a href="http://docs.ipi-manager.ru/" class="menu2">Документация</a>
+            <a href="http://www.ipi-manager.ru/ru/support/developers.phtml" class="menu2">О разработчиках</a>
+        </td></tr>
+        </table>
+
+
+    </div>
+    <div class="doc_main main_content">
+        <div class="doc_content">
+            
+    <div class="relbar_top">
+        <div class="related">
+        <ul>
+            
+            <li class="right">
+            <a href="../Apache2/" title="Настройка Apache">далее</a>
+            </li>
+            
+            
+            <li class="right">
+            <a href="../ExternalServer/" title="Запуск IPI.Manager в паре с внешним HTTP-сервером (IIS/Apache/Lighttpd)">назад</a>
+            |
+            </li>
+            
+            <li><a href="../../../" >Руководство администратора</a> &raquo;</li>
+            <li><a href="../../" >Установка и запуск</a> &raquo;</li>
+            <li><a href="../" >Запуск HTTP-сервера</a> &raquo;</li>
+            <li><a href="../ExternalServer/" accesskey="U">Запуск IPI.Manager в паре с внешним HTTP-сервером (IIS/Apache/Lighttpd)</a> &raquo;</li> 
+        </ul>
+        </div>
+    </div>
+            
+  <div class="section" id="nastroika-iis">
+<h1>Настройка IIS<a class="headerlink" href="#nastroika-iis" title="Ссылка на этот заголовок">¶</a></h1>
+<p>В версии 8.3.0 способ связки с IIS (всех версий старше 5.1) претерпел разительные изменения.
+Теперь вместо соединения IIS &lt;-&gt; IPI.Manager на основе FastCGI используется наш собственный ISAPI
+модуль. Это позволило сделать настройку намного проще, саму работу IPI.Manager гибче и стабильнее.</p>
+<p>Версии IIS выходили вместе с разными версиями Windows по следующей схеме:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="32%" />
+<col width="36%" />
+<col width="32%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Версия IIS</th>
+<th class="head">Версии Windows</th>
+<th class="head">Поддержка IPI.Manager</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>IIS 5.1</td>
+<td>Windows XP 32bit</td>
+<td>не поддерживается</td>
+</tr>
+<tr class="row-odd"><td>IIS 6.0</td>
+<td>Windows XP 64bit Windows Server
+2003 (32/64bit)</td>
+<td>поддерживается</td>
+</tr>
+<tr class="row-even"><td>IIS 7.0</td>
+<td>Windows Vista 32/64bit Windows
+Server 2008 (32/64bit)</td>
+<td>поддерживается</td>
+</tr>
+<tr class="row-odd"><td>IIS 7.5</td>
+<td>Windows 7 32/64bit Windows Server
+2008 R2 (32/64bit)</td>
+<td>поддерживается</td>
+</tr>
+</tbody>
+</table>
+<p>Таким образом IPI.Manager может работать в паре с IIS всех версий, начиная с IIS 6.0.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p class="last">Для работы IPI.Manager под Windows XP 32bit можно использовать либо
+<a class="reference internal" href="../IPIInternalServer/"><em>встроенный веб-сервер</em></a>, либо Apache 2.</p>
+</div>
+<div class="section" id="opisanie">
+<h2>Описание<a class="headerlink" href="#opisanie" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p>Здесь и дальше употребляются следующие псевдо-термины:</p>
+<blockquote class="last">
+<div><p><tt class="file docutils literal"><span class="pre">&lt;PROFILE_DIR&gt;</span></tt>: папка с профилем, который Вы должны были
+создать ранее (например, C:ipimy_profile).</p>
+<p><em>&lt;SERVICE_ACCOUNT&gt;</em>: аккаунт, под которым будет запускаться
+Windows-служба IPI.Manager.</p>
+<p><em>&lt;ISAPI_ACCOUNT&gt;</em>: аккаунт, под которым будет запускаться пул
+приложения IPI.Manager в IIS</p>
+</div></blockquote>
+</div>
+<p>Принцип связи с IIS следующий: с одной стороны запускается сервис с IPI.Manager, который слушает
+соединения на каком-либо порту (на любом =)). Информация о созданном сервисе (включая порт)
+сохраняется в <tt class="file docutils literal"><span class="pre">&lt;PROFILE_DIR&gt;/share/settings.yaml</span></tt> и используется как для запуска сервиса, так и для
+соединения к нему модуля ISAPI. Затем с другой стороны в IIS вставляется модуль
+ipimanager_isapi.dll и docroot сайта ставится в <tt class="file docutils literal"><span class="pre">&lt;PROFILE_DIR&gt;/share/htdocs</span></tt>. Наш ISAPI модуль
+смотрит на docroot и ищет <tt class="file docutils literal"><span class="pre">&lt;PROFILE_DIR&gt;/share/settings.yaml</span></tt>. Когда находит - видит, что сервис
+IPI.Manager запущен на порту NNNN и пытается соединится с ним.</p>
+<p>Таким образом, краткий порядок действий для настройки таков (ниже эти шаги будут расписаны более
+подробно):</p>
+<ol class="arabic simple">
+<li>Настроить права доступа к файлам</li>
+<li>Настроить и запустить сервис IPI.Manager</li>
+<li>(опционально) Создать новый сайт в IIS</li>
+<li>Установить docroot сайта в IIS на <tt class="file docutils literal"><span class="pre">&lt;PROFILE_DIR&gt;/share/htdocs</span></tt></li>
+<li>Добавить в IIS модуль <tt class="docutils literal"><span class="pre">ipimanager_isapi.dll</span></tt></li>
+</ol>
+</div>
+<div class="section" id="nastroika-prav-dostupa-k-failam">
+<h2>Настройка прав доступа к файлам<a class="headerlink" href="#nastroika-prav-dostupa-k-failam" title="Ссылка на этот заголовок">¶</a></h2>
+<p>В дальнейшем у вас будет запускаться два процесса - один будет сервисом <em>Windows</em>, другой будет
+запускать <em>IIS</em> при создании пула приложения <em>IPI.Manager</em>. По умолчанию <em>IIS</em> запускает
+приложения от имени <em>NETWORK_SERVICE</em>, а сервис <em>Windows</em> запускает от имени <em>System Logon
+Account</em>. Если вы не особо заботитесь о безопасности - Вас это волновать не должно, но лучше
+создать отдельного пользователя, скажем, <em>IPI.Manager User</em> и прописать его в обоих местах.</p>
+<p>В любом случае права на доступ к файлам должны быть следующими:</p>
+<ul>
+<li><p class="first">Пользователь, под которым запускается сервис:</p>
+<blockquote>
+<div><p><strong>чтение и запись</strong> в папку профиля (<tt class="file docutils literal"><span class="pre">&lt;PROFILE_DIR&gt;</span></tt>, см. врезку выше)</p>
+<p><strong>только чтение</strong> в папку с системными файлами IPI.Manager (<tt class="file docutils literal"><span class="pre">C:\Program</span> <span class="pre">Files\IPI\IPI.Manager\</span></tt>)</p>
+</div></blockquote>
+<p>Пользователь, под которым <em>IIS</em> создаёт пул приложений</p>
+<blockquote>
+<div><p><strong>только чтение</strong> в папку профиля (<tt class="file docutils literal"><span class="pre">&lt;PROFILE_DIR&gt;</span></tt>, см. врезку выше)</p>
+<p><strong>только чтение</strong> в папку с системными файлами IPI.Manager (<tt class="file docutils literal"><span class="pre">C:\Program</span> <span class="pre">Files\IPI\IPI.Manager\</span></tt>)</p>
+</div></blockquote>
+</li>
+</ul>
+<p>Если же у вас всё запускаться планируется под 1 пользователем - значит он должен иметь права на
+<strong>чтение и запись</strong> в папку профиля и <strong>только чтение</strong> в папку <tt class="file docutils literal"><span class="pre">C:\Program</span> <span class="pre">Files\IPI\IPI.Manager\</span></tt></p>
+<p>В случае, если отдельного пользователя не создавать, это означает что пользователю
+<em>NETWORK_SERVICE</em> нужно дать права на чтение и в папку <tt class="file docutils literal"><span class="pre">C:\Program</span> <span class="pre">Files\IPI\IPI.Manager\</span></tt> и в папку
+<tt class="file docutils literal"><span class="pre">&lt;PROFILE_DIR&gt;</span></tt>.</p>
+</div>
+<div class="section" id="nastroika-i-zapusk-servisa-ipi-manager">
+<h2>Настройка и запуск сервиса IPI.Manager<a class="headerlink" href="#nastroika-i-zapusk-servisa-ipi-manager" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Нужно перейти в папку профиля в консоли (<tt class="docutils literal"><span class="pre">cmd.exe</span></tt>) и выполнить:</p>
+<div class="highlight-python"><pre>cd &lt;PROFILE_DIR&gt;
+ipi-admin runfcgi --port=51000 --service-install
+ipi-admin runfcgi --service-run</pre>
+</div>
+<p>Порт можно выбрать любой. Но как правило, это порты выше 10000-го и те, которые не заняты ничем
+другим. Консоль после этого можно закрыть - сервис будет работать самостоятельно.</p>
+<p>Сервис будет создан со следующими параметрами:</p>
+<blockquote>
+<div><p><strong>пользователь</strong>: локальный системный аккаунт</p>
+<p><strong>запуск</strong>: автоматический (при старте Windows)</p>
+<p><strong>действия при исключениях</strong>: ничего не делать</p>
+</div></blockquote>
+<p>С умолчательными параметрами всё будет работать тоже, но для тонкой и правильной настройки любой
+уважающий себя администратор захочет ещё кое-что изменить. Это все изменяемо стандартными
+средствами Windows. Для изменения нужно открыть свойства сервиса (<em>My computer</em> (<em>Мой
+компьютер</em>)-&gt; Правый клик -&gt; <em>Manage</em> (<em>Управление</em>) -&gt; <em>Services and Applications</em> -&gt;
+<em>Services</em>). Там в списке сервисов найти <em>IPI.Manager Command runfcgi</em> -&gt; правый клик -&gt;
+<em>Properties</em> (<em>свойства</em>).</p>
+<img alt="../../../../_images/1_view_service_properties.png" src="../../../../_images/1_view_service_properties.png" />
+<p>Во-первых целесообразно изменить действия операционной системе при сбое сервиса. Во всех случаях -
+перезапуск:</p>
+<img alt="../../../../_images/2_edit_service_fail_options.png" src="../../../../_images/2_edit_service_fail_options.png" />
+<p>Во-вторых хорошо бы запускать сервис не от имени системного пользователя, а от имени какого-либо
+другого. Мы советуем создать специального пользователя.</p>
+<img alt="../../../../_images/3_edit_service_logon.png" src="../../../../_images/3_edit_service_logon.png" />
+<p>После любых изменений сервис нужно перезапускать. Это можно делать как средствами Windows (либо
+в диалоговом окне свойств, либо через <tt class="docutils literal"><span class="pre">sc.exe</span></tt>), либо средствами комманды <tt class="docutils literal"><span class="pre">ipi-admin</span></tt>:</p>
+<div class="highlight-python"><pre># Способ через ipi-admin:
+C:\Documents and Settings\Administrator&gt;cd C:\ipimanager_profile
+
+C:\ipimanager_profile&gt;ipi-admin runfcgi --service-stop
+Service "IPI.Manager Command -- runfcgi (C|ipimanager_profile)" stopped successfully
+
+C:\ipimanager_profile&gt;ipi-admin runfcgi --service-run
+Service "IPI.Manager Command -- runfcgi (C|ipimanager_profile)" started successfully
+
+# Способ через sc.exe:
+C:\ipimanager_profile&gt;sc stop "IPI.Manager Command -- runfcgi (C|ipimanager_profile)"
+
+SERVICE_NAME: IPI.Manager Command -- runfcgi (C|ipimanager_profile)
+        TYPE               : 10  WIN32_OWN_PROCESS
+        STATE              : 3  STOP_PENDING
+                                (STOPPABLE, NOT_PAUSABLE, IGNORES_SHUTDOWN))
+        WIN32_EXIT_CODE    : 0  (0x0)
+        SERVICE_EXIT_CODE  : 0  (0x0)
+        CHECKPOINT         : 0x1
+        WAIT_HINT          : 0x1388
+
+C:\ipimanager_profile&gt;sc start "IPI.Manager Command -- runfcgi (C|ipimanager_profile)"
+
+SERVICE_NAME: IPI.Manager Command -- runfcgi (C|ipimanager_profile)
+        TYPE               : 10  WIN32_OWN_PROCESS
+        STATE              : 2  START_PENDING
+                                (NOT_STOPPABLE, NOT_PAUSABLE, IGNORES_SHUTDOWN))
+        WIN32_EXIT_CODE    : 0  (0x0)
+        SERVICE_EXIT_CODE  : 0  (0x0)
+        CHECKPOINT         : 0x0
+        WAIT_HINT          : 0x7d0
+        PID                : 3556
+        FLAGS              :</pre>
+</div>
+</div>
+<div class="section" id="ustanovka-iis7">
+<h2>Установка IIS7<a class="headerlink" href="#ustanovka-iis7" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Если IIS ещё не установлен, его нужно установить. Для этого достаточно добавить роль веб-сервера с
+нужными параметрами.</p>
+<img alt="../../../../_images/s1_add_role.png" src="../../../../_images/s1_add_role.png" />
+<p>Далее обязательно нужно выбрать сервис ISAPI Extensions:</p>
+<img alt="../../../../_images/add_role_iis_isapi.png" src="../../../../_images/add_role_iis_isapi.png" />
+</div>
+<div class="section" id="dobavlenie-modulia-ipimanager-isapi-dll">
+<h2>Добавление модуля ipimanager_isapi.dll<a class="headerlink" href="#dobavlenie-modulia-ipimanager-isapi-dll" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="admonition important">
+<p class="first admonition-title">Важно</p>
+<p class="last">У вас уже должен быть установлен пакет IIS для Windows!</p>
+</div>
+<div class="section" id="iis-6">
+<h3>IIS 6<a class="headerlink" href="#iis-6" title="Ссылка на этот заголовок">¶</a></h3>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p>Применимо для:</p>
+<ul class="last simple">
+<li>Windows XP 64bit</li>
+<li>Windows Server 2003 32/64bit</li>
+</ul>
+</div>
+<p>Откройте менеджер настроек IIS (<em>Пуск</em> -&gt; <em>Выполнить</em> -&gt; <em>inetmgr</em>).</p>
+<p>Создайте новый веб-сайт:</p>
+<img alt="../../../../_images/4_create_new_website_in_iis_manager.png" src="../../../../_images/4_create_new_website_in_iis_manager.png" />
+<p>Описание - любое (лучше всего использовать имя будущего домена, например
+<em>ipimanager.mycompany.ru</em>). Домашнюю папку укажите как <tt class="file docutils literal"><span class="pre">&lt;PROFILE_DIR&gt;\share\htdocs</span></tt>. Если
+установить неправильно - впоследствии вам будет об этом сообщено. Естественно, в виде ошибки =).</p>
+<img alt="../../../../_images/5_create_website__select_proper_homedir.png" src="../../../../_images/5_create_website__select_proper_homedir.png" />
+<img alt="../../../../_images/6_create_website__select_proper_options.png" src="../../../../_images/6_create_website__select_proper_options.png" />
+<p>Затем создайте новый пул приложений. Назовите его <em>IPI.Manager App Pool</em>.</p>
+<img alt="../../../../_images/7_create_new_app_pool.png" src="../../../../_images/7_create_new_app_pool.png" />
+<img alt="../../../../_images/8_create_new_app_pool__brief.png" src="../../../../_images/8_create_new_app_pool__brief.png" />
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p class="last">Вы можете так же изменить учётную запись пула (по-умолчанию это будет <em>NETWORK_SERVICE</em>, то
+есть процесс <em>IPI.Manager ISAPI</em> будет запускаться от имени этого пользователя). При этом
+нужно <strong>обязательно</strong> добавить эту учётную запись в группу <em>IIS_WPG</em>, иначе ничего работать не
+будет. Если всё сделаете правильно, и процесс <tt class="docutils literal"><span class="pre">ipimanager_service.exe</span></tt> и <tt class="docutils literal"><span class="pre">w3wp.exe</span></tt> (это
+процесс IIS) будут запущены от имени одного пользователя:</p>
+</div>
+<img alt="../../../../_images/8a_configured_pool_identity.png" src="../../../../_images/8a_configured_pool_identity.png" />
+<p>Затем откройте свойства сайта. На вкладке <em>Home Directory</em> сначала удалите приложение, а затем
+создайте заново (кликнуть на <em>Remove</em>, затем на <em>Create</em>). В качестве пула приложений для только
+чт созданного приложения выберите созданный вами ранее пул <em>IPI.Manager App Pool</em>. Название
+приложения укажите как <em>IPI.Manager ISAPI Handler</em>. Нажмите <em>Применить</em> и потом зайдите в
+настройки приложения (кнопка <em>Configuration</em> там же, рядом).</p>
+<p>В блоке <em>Wildcard application maps</em> нажмите <em>Insert</em>. В появившемся диалоговом окне выберите файл
+<em>C:Program FilesIPIIPI.Manageripimanager_isapi.dll</em>. Уберите галочку <em>Verify that file exists</em>
+и попрбуйте сохранить. Если диалоговое окно недовольно скажет, что имена файлов с пробелами нужно
+обрамлять кавычками - сделайте это (т.е. получится что-то вроде <tt class="file docutils literal"><span class="pre">&quot;C:\Program</span>
+<span class="pre">Files\IPI\IPI.Manager\ipimanager_isapi.dll&quot;</span></tt>). Сохраните всё.</p>
+<div class="admonition important">
+<p class="first admonition-title">Важно</p>
+<p class="last">В старых версиях IPI.Manager использовался хендлер fcgiext.dll. Если он есть в списке
+<em>Wildcard application maps</em>, нужно его оттуда удалить.</p>
+</div>
+<img alt="../../../../_images/9_setup_isapi_app.png" src="../../../../_images/9_setup_isapi_app.png" />
+<p>Затем в диалоговом окне управления <em>IIS</em> (<em>Пуск</em> -&gt; <em>Выполнить</em> -&gt; <em>inetmgr</em>) кликните правой
+кнопкой по <em>Web Service Extensions</em> и выберите <em>Add new Web service extension...</em>. В появившемся
+окне задайте любое имя расширению (например, <em>IPI.Manager ISAPI Handler</em>), в качестве требуемых
+файлов добавьте <tt class="file docutils literal"><span class="pre">C:\Program</span> <span class="pre">Files\IPI\IPI.Manager\ipimanager_isapi.dll</span></tt> и статус расширения
+выберите как <em>Allowed</em> (<em>Разрешённое</em>).</p>
+<img alt="../../../../_images/10_add_extension.png" src="../../../../_images/10_add_extension.png" />
+<img alt="../../../../_images/11_add_extension__brief.png" src="../../../../_images/11_add_extension__brief.png" />
+<p>Теперь не забудьте запустить сам веб-сайт</p>
+<img alt="../../../../_images/12_start_website.png" src="../../../../_images/12_start_website.png" />
+<p>После этого можете попробовать открыть сайт в браузере (для начала, <a class="reference external" href="http://localhost/">http://localhost/</a>). По идее всё будет работать сразу же.</p>
+<img alt="../../../../_images/13_login.png" src="../../../../_images/13_login.png" />
+<p>Возможные ошибки будут такими же как и для <em>IIS7</em> / <em>IIS7.5</em>, о них смотрите в разделе ниже.</p>
+</div>
+<div class="section" id="iis7-iis7-5">
+<h3>IIS7 / IIS7.5<a class="headerlink" href="#iis7-iis7-5" title="Ссылка на этот заголовок">¶</a></h3>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p>Применимо для:</p>
+<ul class="last simple">
+<li>Windows Vista 32/64bit</li>
+<li>Windows Server 2008 32/64bit</li>
+<li>Windows 7 32/64bit</li>
+<li>Windows Server 2008 R2 32/64bit</li>
+</ul>
+</div>
+<p>Откройте менеджер настроек IIS (Пуск -&gt; Выполнить -&gt; inetmgr).</p>
+<p>Создайте новый веб-сайт:</p>
+<img alt="../../../../_images/iis7_01_create_website_in_iis_manager.png" src="../../../../_images/iis7_01_create_website_in_iis_manager.png" />
+<p>Название сайта - любое. Application pool — тот, который вы создали ранее.
+Удобнее всего использовать название будущего домена (например,
+<em>manager.mycompany.ru</em>). Домашнюю папку укажите как
+<tt class="file docutils literal"><span class="pre">&lt;PROFILE_DIR&gt;\share\htdocs</span></tt>. Если установить неправильно -
+впоследствии вам будет об этом сообщено. Естественно, в виде ошибки =).
+Выключите галочку <em>Start web site immidiately</em>.</p>
+<img alt="../../../../_images/iis7_02_create_website__select_proper_homedir_and_options.png" src="../../../../_images/iis7_02_create_website__select_proper_homedir_and_options.png" />
+<p>Зайдите в список пулов приложений, там будет только что созданный пул специально для нового сайта.
+Откройте его базовые опции и выключите ASP.NET</p>
+<img alt="../../../../_images/iis7_03_open_basic_pool_options.png" src="../../../../_images/iis7_03_open_basic_pool_options.png" />
+<img alt="../../../../_images/iis7_03_open_basic_pool_options__turn_off_aspnet.png" src="../../../../_images/iis7_03_open_basic_pool_options__turn_off_aspnet.png" />
+<p>Откройте расширенные опции и разрешите запуск 32-битных приложений</p>
+<img alt="../../../../_images/iis7_04_open_advanced_pool_options.png" src="../../../../_images/iis7_04_open_advanced_pool_options.png" />
+<img alt="../../../../_images/iis7_04_open_advanced_pool_options__enable_32bit_apps.png" src="../../../../_images/iis7_04_open_advanced_pool_options__enable_32bit_apps.png" />
+<p>Откройте <em>Handler Mappings</em></p>
+<img alt="../../../../_images/iis7_05_open_handler_mappings.png" src="../../../../_images/iis7_05_open_handler_mappings.png" />
+<p>Добавьте <em>Wildcard script map</em></p>
+<img alt="../../../../_images/iis7_05_open_handler_mappings__add_wildcard_script_map.png" src="../../../../_images/iis7_05_open_handler_mappings__add_wildcard_script_map.png" />
+<div class="admonition important">
+<p class="first admonition-title">Важно</p>
+<p class="last">В старых версиях IPI.Manager использовался хендлер <tt class="docutils literal"><span class="pre">fcgiext.dll</span></tt>. Если он есть в списке <em>Handler
+Mappings</em>, нужно его оттуда удалить.</p>
+</div>
+<img alt="../../../../_images/iis7_05_open_handler_mappings__set_proper_options.png" src="../../../../_images/iis7_05_open_handler_mappings__set_proper_options.png" />
+<p>На вопрос - создавать ли исключение для ISAPI/CGI, ответье <em>Yes</em> (<em>Да</em>):</p>
+<img alt="../../../../_images/iis7_05_open_handler_mappings__answer_yes_on_adding_isapi_exception.png" src="../../../../_images/iis7_05_open_handler_mappings__answer_yes_on_adding_isapi_exception.png" />
+<p>Теперь откройте <em>ISAPI/CGI Restrictions</em></p>
+<img alt="../../../../_images/iis7_06_open_isapi_exceptions.png" src="../../../../_images/iis7_06_open_isapi_exceptions.png" />
+<p>И измените описание созданного правила:</p>
+<img alt="../../../../_images/iis7_06_open_isapi_exceptions__change_description.png" src="../../../../_images/iis7_06_open_isapi_exceptions__change_description.png" />
+<p>Теперь не забудьте запустить сам веб-сайт</p>
+<img alt="../../../../_images/iis7_07_start_website.png" src="../../../../_images/iis7_07_start_website.png" />
+<p>После этого можете попробовать открыть сайт в браузере (для начала, <a class="reference external" href="http://localhost/">http://localhost/</a>). По идее всё будет работать сразу же.</p>
+<img alt="../../../../_images/13_login.png" src="../../../../_images/13_login.png" />
+</div>
+</div>
+</div>
+
+
+            
+    <div class="relbar_bottom">
+        <div class="related">
+        <ul>
+            
+            <li class="right">
+            <a href="../Apache2/" title="Настройка Apache">далее</a>
+            </li>
+            
+            
+            <li class="right">
+            <a href="../ExternalServer/" title="Запуск IPI.Manager в паре с внешним HTTP-сервером (IIS/Apache/Lighttpd)">назад</a>
+            |
+            </li>
+            
+            <li><a href="../../../" >Руководство администратора</a> &raquo;</li>
+            <li><a href="../../" >Установка и запуск</a> &raquo;</li>
+            <li><a href="../" >Запуск HTTP-сервера</a> &raquo;</li>
+            <li><a href="../ExternalServer/" >Запуск IPI.Manager в паре с внешним HTTP-сервером (IIS/Apache/Lighttpd)</a> &raquo;</li> 
+        </ul>
+        </div>
+    </div>
+        </div>
+    </div>
+    <table cellpadding="0" cellspacing="0" border="0" width="940">
+        <tr>
+            <td width="720">
+                <a href="http://www.ipi-manager.ru/ru/privacy/" class="grey" style="padding-right:10px;">Конфиденциальность</a>
+                <a href="http://www.ipi-manager.ru/ru/privacy/terms.phtml" class="grey" style="padding-right:10px;">Правовые ограничения</a>
+                <a href="http://www.ipi-manager.ru/ru/privacy/license.phtml" class="grey" style="padding-right:10px;">Лицензия</a>
+                <a href="http://www.ipi-manager.ru/ru/privacy/contacts.phtml" class="grey" style="padding-right:10px;">Контактная информация</a>
+            </td>
+            <td width="100" align="right" style="color:#999;">© 1998-2012</td>
+            <td width="120" align="right">
+                    <img src="http://www.ipi-manager.ru/media/_/logo_ipi.gif" alt="Компания IPI" width="33" height="20" border="0">
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>
