@@ -10,7 +10,6 @@ namespace OnlineShopKendo
     {
         public void Configuration(IAppBuilder app)
         {
-            // настраиваем контекст и менеджер
             app.CreatePerOwinContext<ApplicationContext>(ApplicationContext.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
             app.CreatePerOwinContext<ApplicationRoleManager>(ApplicationRoleManager.Create);

@@ -1,8 +1,7 @@
 ﻿
-    window.onload = function () {
-
-        counting();
-    };
+window.onload = function () {
+    counting();
+};
 
 function changeNumber(id, value) {
     var item = JSON.parse(localStorage.getItem(id));

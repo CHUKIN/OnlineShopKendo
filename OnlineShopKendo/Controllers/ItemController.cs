@@ -10,8 +10,6 @@ using OnlineShopKendo.Models;
 
 namespace OnlineShopKendo.Controllers
 {
-
-   
     public class ItemController : Controller
     {
         ApplicationContext db = new ApplicationContext();

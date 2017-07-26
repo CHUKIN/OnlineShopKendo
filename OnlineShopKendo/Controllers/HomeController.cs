@@ -19,7 +19,6 @@ using OnlineShopKendo.Models;
 
 namespace OnlineShopKendo.Controllers
 {
-
     public class HomeController : Controller
     {
         ApplicationContext db = new ApplicationContext();
@@ -58,7 +57,6 @@ namespace OnlineShopKendo.Controllers
             db.SaveChanges();
 
             string language = Request.Cookies["lang"].Value;
-            //string to = "id61899437-02ac7a125@vkmessenger.com";
             string to = db.Users.ToList().First(i => i.Id == User.Identity.GetUserId()).Email;
             string subject = Resources.Resource.OrderNumber+": "+order.OrderId;
             string message = Resources.Resource.OrderNumber + ": " + order.OrderId+"\n";
@@ -79,24 +77,19 @@ namespace OnlineShopKendo.Controllers
             return View(db.Orders.ToList());
         }
 
-
-
         public ActionResult ChangeCulture(string lang)
         {
             string returnUrl = Request.UrlReferrer.AbsolutePath;
-            // Список культур
             List<string> cultures = new List<string>() { "ru", "en"};
             if (!cultures.Contains(lang))
             {
                 lang = "ru";
             }
-            // Сохраняем выбранную культуру в куки
             HttpCookie cookie = Request.Cookies["lang"];
             if (cookie != null)
-                cookie.Value = lang;   // если куки уже установлено, то обновляем значение
+                cookie.Value = lang;  
             else
             {
-
                 cookie = new HttpCookie("lang");
                 cookie.HttpOnly = false;
                 cookie.Value = lang;
@@ -111,25 +104,15 @@ namespace OnlineShopKendo.Controllers
         {
             WebRequest request = WebRequest.Create("http://smtpproxy.azurewebsites.net/api/send");
             request.Method = "POST";
-
             string data = $"to={to}&subject={subject}&message={message}";
-
             byte[] byteArray = System.Text.Encoding.UTF8.GetBytes(data);
-
             request.ContentType = "application/x-www-form-urlencoded";
-
             request.ContentLength = byteArray.Length;
-
             using (Stream dataStream = request.GetRequestStream())
             {
                 dataStream.Write(byteArray, 0, byteArray.Length);
             }
-
             await request.GetResponseAsync();
         }
-
-
-
-
     }
 }

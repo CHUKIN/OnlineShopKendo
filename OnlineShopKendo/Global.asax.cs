@@ -37,7 +37,7 @@ namespace OnlineShopKendo
             Request.Cookies.Add(cookie);
 
             string cultureName = cookie.Value;
-            // Список культур
+
             List<string> cultures = new List<string>() { "ru", "en" };
             if (!cultures.Contains(cultureName))
             {
