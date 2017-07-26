@@ -10,7 +10,7 @@ using OnlineShopKendo.Models;
 
 namespace OnlineShopKendo.Controllers
 {
-    //[Culture]
+
    
     public class ItemController : Controller
     {

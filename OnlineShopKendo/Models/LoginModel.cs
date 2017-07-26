@@ -10,7 +10,6 @@ namespace OnlineShopKendo.Models
 {
     public class LoginModel
     {
-        //[Required(ErrorMessageResourceName = "NameRequired", ErrorMessageResourceType = typeof(Resources.Resource))]
         [Required]
         [Display(Name = "Login", ResourceType = typeof(Resources.LoginModel))]
         public string Login { get; set; }

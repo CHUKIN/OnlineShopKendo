@@ -19,7 +19,7 @@ using OnlineShopKendo.Models;
 
 namespace OnlineShopKendo.Controllers
 {
-   // [Culture]
+
     public class HomeController : Controller
     {
         ApplicationContext db = new ApplicationContext();

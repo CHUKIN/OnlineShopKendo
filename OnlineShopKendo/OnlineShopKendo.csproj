@@ -214,8 +214,6 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ItemController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
-    <Compile Include="Filters\CultureAttribute.cs" />
-    <Compile Include="Filters\LocalizedDisplayNameAttribute.cs" />
     <Compile Include="Filters\MyAuthAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -287,7 +285,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\all5.css" />
-    <Content Include="Content\alll.css" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />
@@ -382,7 +379,6 @@
     <Content Include="Views\Home\PersonalArea.cshtml" />
     <Content Include="Views\Error\Unauthorized.cshtml" />
     <Content Include="Views\Item\Manage.cshtml" />
-    <Content Include="Views\Home\lol.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>

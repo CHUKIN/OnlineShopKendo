@@ -15,7 +15,6 @@ using OnlineShopKendo.Filters;
 namespace OnlineShopKendo.Controllers
 {
 
-    //[Culture]
     public class AccountController : Controller
         {
         ApplicationContext db = new ApplicationContext();

@@ -3,20 +3,13 @@
     ViewBag.Title = Resources.Resource.AddItem;
 }
 
-<style>
-    .preview {
-        background-color: darkgrey;
-        border-radius: 10px;
-        width: 50%;
-    }
-</style>
 
 
 <div class="container">
     <h2>@Resources.Resource.AddItem</h2>
     @ViewBag.Message
 
-    <form action="/Item/Index" method="post" enctype="multipart/form-data" class="preview">
+    <form action="/Item/Index" method="post" enctype="multipart/form-data" class="preview-item">
         <div class="row">
             <div class="col-lg-4">
                 <label>@Resources.Resource.Text: (ru)</label>

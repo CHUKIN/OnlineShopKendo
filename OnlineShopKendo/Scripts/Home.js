@@ -1,10 +1,8 @@
 ﻿
+    window.onload = function () {
 
-
-window.onload = function () {
-    // updateGrid();
-    counting();
-};
+        counting();
+    };
 
 function changeNumber(id, value) {
     var item = JSON.parse(localStorage.getItem(id));
@@ -26,12 +24,7 @@ function updateGrid() {
             item = JSON.stringify(item);
             localStorage.setItem(key, item);
         }
-        if (localStorage.length > 0) {
-            document.getElementById("sendOrderButton").removeAttribute('hidden');
-        } else {
-            alert("q");
-            $("#sendOrderButton").attr("hidden","true");
-        }
+            
     }
 
 
@@ -51,6 +44,15 @@ function updateGrid() {
         document.getElementById(item.Id).value = item.Count;
     }
 
+    if (localStorage.length > 0) {
+        $("#sendOrderButton").removeAttr("hidden");
+        $("#removeTrash").removeAttr("hidden");
+    } else {
+        $("#sendOrderButton").attr("hidden", "true");
+        $("#removeTrash").attr("hidden", "true");
+         
+    }
+
 }
 
 
@@ -65,7 +67,7 @@ function counting(message) {
     var text = document.getElementById('cost').innerText;
     text = text.split(":");
     text = text[0] + ":";
-    document.getElementById('cost').innerHTML =text+" "+ totalCost;
+    document.getElementById('cost').innerHTML = text + " " + totalCost;
     updateGrid();
 }
 
